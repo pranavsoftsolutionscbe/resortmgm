@@ -1,0 +1,38 @@
+export interface RouterUrlsType {
+  MyAccount: string;
+  Login: string;
+  Register: string;
+  YourAccount: string;
+  YourAddress: string;
+  Address: string;
+  LoginSecurity: string;
+  Shop: string;
+  OrderHistory: string;
+  WishList: string;
+  Checkout: string;
+  ViewCart: string;
+  ProductDescription: string;
+  Products: string;
+  Dashboard: string;
+  SuperDeals: string;
+  TrendingStyles: string;
+  BomTools: string;
+  AddAddress: string;
+  EditAddress: string;
+  ForgotPassword: string;
+  PaymentOptions: string;
+  SearchListing: string;
+  Components: string;
+  BusinessSetting: string;
+  AddAdmin: string;
+  AboutUs: string;
+  ContactUs: string;
+  TermsConditions: string;
+  DeliveryReturns: string;
+  PrivacyPolicy: string;
+  YourOrders: string;
+  Billingaddress:string;
+  EditBillingaddress:string;
+  DefaultBillingAddress:string;
+  DefaultShippingAddress:string;
+}

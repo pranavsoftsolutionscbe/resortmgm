@@ -1,0 +1,47 @@
+<div class="bg-blue min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="4" sm="6" xs="10">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form cForm>
+                <img cCardImg="top" loading="lazy" src="assets/images/surada/logo.jpg" />
+                <p class="text-medium-emphasis text-center">Sign In to your account</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input name="username" cFormControl [(ngModel)]="userName" placeholder="Username" required
+                    autofocus />
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input name="password" cFormControl placeholder="Password" type="password" required
+                    [(ngModel)]="password" />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="12" class="text-center">
+                    <button cButton class="px-5 bg-blue" [disabled]="!userName || !password" (click)="onClickSubmit()">
+                      <span *ngIf="!isFormSubmitted">Login</span>
+                      <span *ngIf="isFormSubmitted">
+                        <c-spinner size="sm"></c-spinner>
+                        Loading...
+                      </span>
+                    </button>
+                  </c-col>
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
+
+<c-alert color="success" *ngIf="isFormSubmitted && isUserLoggedIn">Successfully logged in!</c-alert>
+<c-alert color="danger" *ngIf="isFailed">Username or Password is
+  wrong!</c-alert>

@@ -1,0 +1,243 @@
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-3 form-label m-0 m-2" for="checkin">
+                                Check In
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <div class="position-relative me-1">
+                                <input autocomplete="off" cFormControl class="form-control" name="checkin" ngbDatepicker
+                                    #datepickerCheckin="ngbDatepicker" placeholder="yyyy-mm-dd"
+                                    (dateSelect)="onDateSelect($event, 'check-in')" [minDate]="minDate"
+                                    [(ngModel)]="searchData.checkInDate" />
+                                <button class="btn btn-outline-secondary form-datepicker"
+                                    (click)="datepickerCheckin.toggle()" type="button"><svg cIcon
+                                        name="cilCalendar"></svg>
+                                </button>
+                            </div>
+                            <ngb-timepicker [(ngModel)]="timeCheckIn" (change)="setTime('check-in')"
+                                [spinners]="false"></ngb-timepicker>
+                        </c-col>
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-3 form-label m-0 m-2" for="checkin">
+                                Check Out
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <div class="position-relative me-1">
+                                <input autocomplete="off" cFormControl class="form-control" name="checkout"
+                                    ngbDatepicker #datepickerCheckout="ngbDatepicker" placeholder="yyyy-mm-dd"
+                                    (dateSelect)="onDateSelect($event, 'check-out')" [minDate]="searchData.checkInDate"
+                                    [(ngModel)]="searchData.checkOutDate" />
+                                <button class="btn btn-outline-secondary form-datepicker"
+                                    (click)="datepickerCheckout.toggle()" type="button"><svg cIcon
+                                        name="cilCalendar"></svg>
+                                </button>
+                            </div>
+                            <ngb-timepicker [(ngModel)]="timeCheckOut" (change)="setTime('check-out')"
+                                [spinners]="false"></ngb-timepicker>
+                        </c-col>
+                        <c-col sm="12" md="6" lg="3" class="c-block">
+                            <label cLabel class="col-sm-12 col-md-12 col-lg-4 form-label m-0 m-2" for="room_type">
+                                Room Type
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="room_type" cSelect class="form-control"
+                                [(ngModel)]="searchData.room_type">
+                                <option value=""></option>
+                                <option value="1">All</option>
+                                <option *ngFor="let roomtyp of roomtypes
+                                " value={{roomtyp.RoomTypeID}}>{{roomtyp.RoomType}}</option>
+                            </select>
+                        </c-col>
+                        <c-col sm="12" md="12" lg="1" class="c-block">
+                            <button cButton class="btn btn-light w-100 mb-1 p-1 text-black" type="button"
+                                (click)="storeInLocalStorage()">
+                                <svg cIcon name="cil-search" size="sm" class="me-2" title="search"></svg>
+                            </button>
+                        </c-col>
+                    </c-row>
+                </div>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+
+<c-row>
+    <c-col xs="12">
+        <ng-container *ngFor="let room of filtered_rooms; let i = index;">
+
+            <c-card class="mb-3">
+                <c-card-body class="p-4 ps-0 pe-0">
+                    <div class="m-0 row w-100 justify-content-around">
+                        <c-row class="mb-4 room-card m-0">
+                            <c-col sm="12" md="4" lg="4" class="m-0">
+                                <div class="lst-rm rd-cls">
+                                    <span class="lastmin">
+                                        Last {{ room.room_availablity }}&nbsp;Rooms </span>
+                                </div>
+
+                                <a class="fancybox packages_readmore roomtypereadmore" href="javascript:void(0);">
+                                    <img class="roomImage roomDivShow" src="{{serverpath +room.imagepath}}"
+                                        width="100%">
+                                </a>
+                                <div class="clear roomIcons mb-3">
+                                    <a data-toggle="tooltip" class="fontawsomeiconcolor"
+                                        title=" Sleeps  {{room.NoOFChilds}} Childs"><i class="fa fa-male"
+                                            aria-hidden="true"></i></a>
+                                    <a data-toggle="tooltip" title="{{room.MaxBed}} Guest"
+                                        class="fontawsomeiconcolor"><i class="fa fa-bed" aria-hidden="true"></i></a>
+                                    <a data-toggle="tooltip" title="{{room.TotalAreainSqft}}"
+                                        class="fontawsomeiconcolor">
+                                        <i class="fa-solid fa-fan"></i></a>
+                                    <a data-toggle="tooltip" title="{{room.TotalAreainSqft}}"
+                                        class="fontawsomeiconcolor"><i class="fa fa-icon-Window"></i></a>
+                                    <a data-toggle="tooltip" title="Windows" class="fontawsomeiconcolor"><i
+                                            class="fa fa-icon-Window"></i></a>
+                                    <a data-toggle="tooltip" title="Floor {{room.Floor}}" class="fontawsomeiconcolor"><i
+                                            class="fa-icon-Flat-Screen-TV"></i></a>
+                                </div>
+                            </c-col>
+                            <c-col sm="12" md="8" lg="8">
+                                <div lg="8" md="12" sm="12" class="packagesHeading pl-0">
+                                    {{ room.title }} </div>
+                                <div class="cus-box p-0">
+                                    <div class="rmdetails-block col-md-8 col-sm-12">
+                                        <div class="packagesDesc read-more-content" [innerHTML]="room.description ">
+                                        </div>
+                                    </div>
+                                    <div class="pk-price col-md-4 col-sm-12">
+                                        <div class="packagesPriceCol">
+                                            <div class="accordion-toggle collapsed showpanel"
+                                                title="Click to Show/Hide Rooms">
+                                                <div class="from">From </div>
+                                                <div class="onlyRoomsValue" id="minRoomId">
+                                                    <div class="onlyPkgPricetext w-75">
+                                                        <div class="BEOPrice">{{ room.Capacity }} <span class="beunit">
+                                                                Area in Sq Ft.
+                                                            </span></div>
+                                                        <div style="float:left;padding-right:5px;" class="BEOCurrency">
+                                                            INR
+                                                        </div>
+                                                        <div class="BEOPrice">{{ room.amount }} <span class="beunit">
+                                                                per Day
+                                                            </span></div>
+                                                        <span class="inclusivecss">Tax
+                                                            Exclusive</span><br>
+                                                    </div>
+                                                    <span class="hsbtn" id="view-{{room.BuldingID}}"
+                                                        (click)="expandDiv(room.BuldingID)">
+                                                        + View </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c-col>
+                        </c-row>
+
+                        <c-row class="roomTypeBox d-none" id="room-{{room.BuldingID}}" style="position:relative">
+                            <div class="mb-4 room-card m-0 row" *ngFor="let broom of tobookrooms">
+                                <div class="img-box col-md-4 col-sm-4 col-xs-12 position-relative">
+                                    <img class="packages_img mb-0"
+                                        src="{{resourcePath}}rooms/1/{{broom.images[0]?.Imagepath}}"
+                                        *ngIf="broom.images?.length">
+                                    <img class="packages_img mb-0" src="{{defaultImage}}" *ngIf="!broom.images?.length">
+                                    <div class="more-images" *ngIf="broom.images?.length"
+                                        (click)="setRoomSlides(broom.images); availablity = broom.availablity">
+                                        <p><i class="fa fa-eye" title="view more images" aria-hidden="true"></i></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12 mb-3">
+                                    <div class="packagesHeading col-md-8 col-sm-9 col-xs-12">
+                                        {{broom.RoomName}}</div>
+                                    <div class="cus-box p-0">
+                                        <div class="col-md-8 col-sm-7 col-xs-12 packagedetail-block">
+                                            <div class="packagesDesc" [innerHTML]="broom.Description">
+
+                                                <div class="adult-icon">2&nbsp;<i class="fa fa-male fa-2x"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-5 col-xs-8 pk-price">
+                                            <div class="packagesPriceCol">
+                                                <div class="from">Area </div> {{broom.TotalAreainSqft}}
+                                                <div class="from"> {{broom.rooms}} Rooms </div>
+                                                <div class="from"> {{broom.MaxBed}} Adults </div>
+                                                <div class="from"> {{broom.NoOFChilds}} Childs </div>
+                                                <div class="packages_box">
+                                                    <div class="onlyRoomsValue" id="minRoomId">
+                                                        <div class="onlyPkgPricetext w-75">
+                                                            <div style="float:left;padding-right:5px;"
+                                                                class="BEOCurrency">
+                                                                INR
+                                                            </div>
+                                                            <div class="BEOPrice">{{ room.amount }} <span
+                                                                    class="beunit">
+                                                                    per
+                                                                    Day
+                                                                </span></div><span class="inclusivecss">Tax
+                                                                Exclusive</span><br>
+                                                        </div>
+                                                        <span class="hsbtn"
+                                                            (click)="booknow(broom.RoomId, room.RateId)">
+                                                            Book now
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </c-row>
+                    </div>
+                </c-card-body>
+            </c-card>
+        </ng-container>
+    </c-col>
+</c-row>
+
+<ng-container *ngIf="slides.length">
+    <c-modal id="liveDemoModal" [visible]="liveDemoVisible" (visibleChange)="handleLiveDemoChange($event)">
+        <c-modal-header>
+            <h5 cModalTitle>Room Images</h5>
+            <button (click)="toggleLiveDemo()" cButtonClose></button>
+        </c-modal-header>
+        <c-modal-body class="pt-2">
+            <c-col xs="12">
+                <div class="col-sm-12 availablity mb-2">
+                    <label cLabel class="col-sm-3 form-label m-0 m-2" for="room">
+                        <b>Room - {{ availablity.RoomName }}</b>
+                    </label>
+                    <label cLabel class="col-sm-3 form-label m-0 m-2" for="capacity">
+                        <b>Capacity - {{ availablity.Capacity }}</b>
+                    </label>
+                    <label cLabel class="col-sm-3 form-label m-0 m-2" for="adult">
+                        <b>Adults - {{ availablity.MaxBed }}</b>
+                    </label>
+                    <label cLabel class="col-sm-3 form-label m-0 m-2" for="child">
+                        <b>Childs - {{ availablity.NoOFChilds }}</b>
+                    </label>
+                </div>
+                <c-card class="mb-4">
+                    <c-carousel (itemChange)="onItemChange($event)" [interval]="0">
+                        <c-carousel-indicators></c-carousel-indicators>
+                        <c-carousel-inner>
+                            <c-carousel-item *ngFor="let slide of slides">
+                                <img class="d-block w-100 carousel-image" alt="test" loading="lazy" [src]="slide.src" />
+                            </c-carousel-item>
+                        </c-carousel-inner>
+                        <c-carousel-control [routerLink]="[]" caption="Previous" direction="prev"
+                            i18n-caption></c-carousel-control>
+                        <c-carousel-control [routerLink]="[]" caption="Next" direction="next"
+                            i18n-caption></c-carousel-control>
+                    </c-carousel>
+                </c-card>
+            </c-col>
+        </c-modal-body>
+    </c-modal>
+</ng-container>

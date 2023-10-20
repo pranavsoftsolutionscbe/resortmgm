@@ -1,0 +1,26 @@
+.bg-pink {
+    background: #dd757547;
+    padding: 10px 5px;
+}
+
+.container-row {
+    padding: 5px;
+    margin: 0.1rem 0;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.table-details {
+    height: 200px;
+    border: 1px solid #000;
+    overflow: auto;
+
+    table {
+        thead {
+            th {
+                border: 1px solid;
+                border-color: #000;
+            }
+        }
+    }
+}

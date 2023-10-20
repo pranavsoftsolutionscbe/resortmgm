@@ -1,0 +1,42 @@
+export class h_coupontransmaster {
+    VoucherNo: string = '';
+    VoucherCode: number = 0;
+    CouponID: number = 0;
+    EntryDate: Date = new Date();
+    ClassID: number = 0;
+    NoOfGuest: number = 0;
+    IsBreakFastIncluded: number = 0;
+    NoOfBreaKFast: number = 0;
+    NoOfRooms: number = 0;
+    NoOfDays: number = 0;
+    BreakFastIn: number = 0;
+    BreakFastOut: number = 0;
+    BillAccountCode: number = 0;
+    Credit: number = 0;
+    Debit: number = 0;
+    IsRoomRent: number = 0;
+    IsTaxIncluded: number = 0;
+    IsServiceChargeIncluded: number = 0;
+    ValidDays: number = 0;
+    isInActive: number = 0;
+    IsLunchIncluded: number = 0;
+    IsDinnerIncluded: number = 0;
+    IsSpecialDinnerIncluded: number = 0;
+    IsBreakFastInclued: number = 0;
+    RoomRate: number = 0;
+    BreakFastRate: number = 0;
+    LunchRate: number = 0;
+    DinnerRate: number = 0;
+    SpecialDinnerRate: number = 0;
+    BookingRef: string = '';
+    Sun: number = 0;
+    Mon: number = 0;
+    Tue: number = 0;
+    Wed: number = 0;
+    Thu: number = 0;
+    Fri: number = 0;
+    Sat: number = 0;
+    Holiday: number = 0;
+    SortNo: number = 0;
+
+}

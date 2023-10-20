@@ -1,0 +1,350 @@
+<c-row>
+    <c-col xs="8">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="couponType">
+                                Coupon Name
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Coupon Type" cFormControl name="couponType"
+                                type="text" [(ngModel)]="coupon.CouponType" />
+                        </c-col>
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="noOfGuest">
+                                No Of Guest
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="No Of Guest" cFormControl name="noOfGuest"
+                                type="number" [(ngModel)]="coupon.NoOfGuest" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="rateName">
+                                From Date
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <div class="position-relative me-1">
+                                <input autocomplete="off" cFormControl class="form-control" name="checkin" ngbDatepicker
+                                    #datepickerCheckin="ngbDatepicker" placeholder="yyyy-mm-dd"
+                                    [(ngModel)]="checkin_date" (dateSelect)="onDateSelect($event, 'from-date')"
+                                    [minDate]="minDate" />
+                                <button class="btn btn-outline-secondary form-datepicker"
+                                    (click)="datepickerCheckin.toggle()" type="button"><svg cIcon
+                                        name="cilCalendar"></svg>
+                                </button>
+                            </div>
+                        </c-col>
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="RoomRate">
+                                To Date
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <div class="position-relative me-1">
+                                <input autocomplete="off" cFormControl class="form-control" name="checkout"
+                                    ngbDatepicker #datepickerCheckout="ngbDatepicker" placeholder="yyyy-mm-dd"
+                                    (dateSelect)="onDateSelect($event, 'Todate')" [(ngModel)]="checkout_date"
+                                    [minDate]="searchData.checkInDate" />
+                                <button class="btn btn-outline-secondary form-datepicker"
+                                    (click)="datepickerCheckout.toggle()" type="button"><svg cIcon
+                                        name="cilCalendar"></svg>
+                                </button>
+                            </div>
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="rateName">
+                                Room Type
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="rateName" cSelect [(ngModel)]="coupon.ClassID" class="form-control"
+                                (change)="rateChanged()">
+                                <option value="">Select Room Type</option>
+                                <ng-container *ngFor="let room of rate_lists">
+                                    <option value="{{ room.RoomTypeID }}">{{ room.RoomType }}</option>
+                                </ng-container>
+                            </select>
+                        </c-col>
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="RoomRate">
+                                Room Rate
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Room Rate" disabled cFormControl
+                                (change)="gettotalAmount()" name="RoomRate" type="text" [(ngModel)]="coupon.RoomRate" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <!-- No Need now -->
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="ValidDays">
+                                Allowed Days
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <c-form-check [switch]="true">
+                                <input autocomplete="off" placeholder="Enter Breakfast Rate" cFormControl
+                                    name="ValidDays" type="number" [(ngModel)]="coupon.ValidDays" />
+                            </c-form-check>
+                        </c-col>
+
+                        <!-- <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="IsBreakFastInclued">
+                                Is BreakFast Inclued
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <c-form-check [switch]="true">
+                                <input autocomplete="off" placeholder="Enter Breakfast Rate" cFormControl
+                                name="BreakFastRate" type="number" [(ngModel)]="coupon.BreakFastRate"
+                                />
+                            </c-form-check>
+                        </c-col> -->
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <!-- <label cLabel class="col-sm-4 form-label m-0 m-2" for="BreakFast">
+                                BreakFast
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter BreakFast" cFormControl name="BreakFast"
+                                type="text" [(ngModel)]="coupon.BreakFast" [disabled]="!coupon.IsBreakFastInclued" /> -->
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="IsBreakFastInclued">
+                                Is BreakFast Inclued
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <c-form-check [switch]="true">
+                                <input cFormCheckInput type="checkbox" [(ngModel)]="coupon.IsBreakFastInclued"
+                                    (change)="gettotalAmount()" name="IsBreakFastInclued" />
+                            </c-form-check>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="BreakFastRate">
+                                Breakfast Rate
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Breakfast Rate" cFormControl
+                                (change)="gettotalAmount()" name="BreakFastRate" type="number"
+                                [(ngModel)]="coupon.BreakFastRate" [disabled]="!coupon.IsBreakFastInclued" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="IsLunchIncluded">
+                                Is Lunch Included
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <c-form-check [switch]="true">
+                                <input cFormCheckInput type="checkbox" [(ngModel)]="coupon.IsLunchIncluded"
+                                    (change)="gettotalAmount()" name="IsLunchIncluded" />
+                            </c-form-check>
+                        </c-col>
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="LunchRate">
+                                Lunch Rate
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Lunch Rate" cFormControl name="LunchRate"
+                                (change)="gettotalAmount()" type="number" [(ngModel)]="coupon.LunchRate"
+                                [disabled]="!coupon.IsLunchIncluded" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="IsDinnerIncluded">
+                                Is Dinner Included
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <c-form-check [switch]="true">
+                                <input cFormCheckInput type="checkbox" [(ngModel)]="coupon.IsDinnerIncluded"
+                                    (change)="gettotalAmount()" name="IsDinnerIncluded" />
+                            </c-form-check>
+                        </c-col>
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="dinnerRate">
+                                Dinner Rate
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Dinner Rate" cFormControl name="dinnerRate"
+                                (change)="gettotalAmount()" type="number" [(ngModel)]="coupon.DinnerRate"
+                                [disabled]="!coupon.IsDinnerIncluded" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="IsSpecialDinnerIncluded">
+                                Is Special Dinner Included
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <c-form-check [switch]="true">
+                                <input cFormCheckInput type="checkbox" [(ngModel)]="coupon.IsSpecialDinnerIncluded"
+                                    name="IsSpecialDinnerIncluded" />
+                            </c-form-check>
+                        </c-col>
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="splDinnerRate">
+                                Special Dinner Rate
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Special Dinner Rate" cFormControl
+                                name="splDinnerRate" type="number" [(ngModel)]="coupon.SpecialDinnerRate"
+                                (change)="gettotalAmount()" [disabled]="!coupon.IsSpecialDinnerIncluded" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="ServiceChargeIncluded">
+                                Total Deduction
+                                <!-- <i class="fa fa-star mand"></i> -->
+                            </label>
+                            <!-- <c-form-check [switch]="true">
+                                <input cFormCheckInput type="checkbox" [(ngModel)]="coupon.ServiceChargeIncluded"
+                                    name="ServiceChargeIncluded" />
+                            </c-form-check> -->
+                        </c-col>
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <!-- <label cLabel class="col-sm-4 form-label m-0 m-2" for="TotalRate">
+                                Total Rate
+                                <i class="fa fa-star mand"></i>
+                            </label> -->
+                            <input autocomplete="off" placeholder="Enter Total Rate" cFormControl name="TotalRate"
+                                type="number" [(ngModel)]="coupon.TotalRate" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <!-- hide Service Charges  -->
+                <!-- <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="serviceChargeAccount">
+                                Service Charge Account
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="serviceChargeAccount" cSelect [(ngModel)]="coupon.ServiceChargeAccount"
+                                class="form-control" [disabled]="!coupon.ServiceChargeIncluded">
+                                <option value="">Select Service Charge Account</option>
+                                <ng-container *ngFor="let account of account_lists">
+                                    <option value="{{ account.AccountCode }}">{{ account.Name }}</option>
+                                </ng-container>
+                            </select>
+                        </c-col>
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="serviceChargePercent">
+                                Service Charge Percent
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Service Charge Percent" cFormControl
+                                name="serviceChargePercent" type="text" [(ngModel)]="coupon.ServiceChargePercent"
+                                [disabled]="!coupon.ServiceChargeIncluded" />
+                        </c-col>
+                    </c-row>
+                </div> -->
+                <br>
+                <c-row class="cta justify-content-center">
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-light w-100 mb-1 p-1 text-black" type="button"
+                            (click)="resetCouponData()">
+                            <svg cIcon name="cil-paper-plane" size="sm" class="me-2" title="Paper Plane Icon"></svg>
+                            New</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-success w-100 mb-1 p-1 text-black" [class.btn-success]="!isEdit"
+                            [class.btn-info]="isEdit" type="button" (click)="saveEdit()">
+                            <svg cIcon name="cil-task" size="sm" class="me-2" title="cil-task"></svg>
+                            Save</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-warning w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-pencil" size="sm" class="me-2" title="cil-pencil"></svg>
+                            Edit</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-danger w-100 mb-1 p-1 text-black" type="button"
+                            (click)="toggleConfirmation(); deletingCouponId = coupon.CouponID">
+                            <svg cIcon name="cil-trash" size="sm" class="me-2" title="cil-trash"></svg>
+                            Delete</button>
+                    </c-col>
+
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="4">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <div class="d-flex m-0 row w-100">
+                            <div class="container">
+                                <div [cFormFloating]="true" class="col-sm-12">
+                                    <input cFormControl id="mamber" placeholder="Search Coupon" type="text"
+                                        (keyup)="search($event)" />
+                                    <label cLabel for="mamber">Search Coupon</label>
+                                </div>
+
+                                <div class="rate-list-table">
+                                    <table cTable [responsive]="true" [bordered]="true">
+                                        <thead cTableColor="dark">
+                                            <tr>
+                                                <th scope="col" class="text-center small">#</th>
+                                                <th scope="col" class="text-center small">Coupon </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let bld of coupon_lists;let i= index;">
+                                                <th scope="row" class="small text-center">{{i+1}}</th>
+                                                <td class="text-left" (click)="ShowCoupon(bld.CouponID)"
+                                                    style="cursor: pointer;">
+                                                    {{bld.CouponType}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </c-row>
+                </div>
+            </c-card-body>
+        </c-card>
+    </c-col>
+
+    <c-col sm="4" class="mt-3 toaster" *ngIf="toasterShow">
+        <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+            <c-toast [fade]="true" [visible]="true" color="{{toasterColor}}">
+                <c-toast-body class="text-white">{{toasterText}}</c-toast-body>
+            </c-toast>
+        </c-toaster>
+    </c-col>
+</c-row>
+
+<c-modal class="customModal" id="confirmationModal" [visible]="toggleConfirmationModal">
+    <c-modal-header>
+        <button (click)="toggleConfirmation()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>Are you sure want to delete this coupon {{ coupon.CouponType }}?</c-modal-body>
+    <c-modal-footer>
+        <button (click)="toggleConfirmation()" cButton color="secondary">
+            Close
+        </button>
+        <button cButton color="danger" (click)="deleteCoupon()">Delete</button>
+    </c-modal-footer>
+</c-modal>

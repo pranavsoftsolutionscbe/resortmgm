@@ -1,0 +1,351 @@
+<c-row>
+    <c-col xs="12" md="8">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="room_type">
+                                Room Type
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="room_type" cSelect class="form-control"
+                                [(ngModel)]="rateType.RoomTypeID">
+                                <option value="">Select Room Type</option>
+                                <option *ngFor="let rtype of roomtypes;" [value]="rtype.RoomTypeID">
+                                    {{rtype.RoomType}}</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="rate_name">
+                                Rate Name
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Rate Name" cFormControl name="rate_name" type="text"
+                                [(ngModel)]="rateType.RateType" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="rate">
+                                Rate
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Rate" cFormControl name="rate" type="number"
+                                [(ngModel)]="rateType.Rate" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="weekend_rate">
+                                Weakend Rate
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Weakend Rate" cFormControl name="weekend_rate"
+                                type="number" [(ngModel)]="rateType.WeakendRate" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="holiday">
+                                Holiday Rate
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Holiday Rate" cFormControl name="holiday"
+                                type="number" [(ngModel)]="rateType.HolydatRate" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="RateDescription">
+                                Description Name
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Rate Description" cFormControl
+                                name="RateDescription" type="text" [(ngModel)]="rateType.RateDescription" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="taxtypeID">
+                                Tax Type
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="taxtypeID" cSelect class="form-control" [(ngModel)]="taxtypeID"
+                                (click)="loadTaxrates()">
+                                <option value="">Select Tax Type</option>
+                                <option *ngFor="let ttype of taxtypes;" [value]="ttype.TaxTypeID">
+                                    {{ttype.TaxTypeName}}</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="rate_name">
+                                Job Tax Code
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="room_type" cSelect class="form-control"
+                                [(ngModel)]="rateType.IsTaxInclusive" (click)="showTaxRateDetails()">
+                                <option value="">Select Tax Rates</option>
+                                <option *ngFor="let rates of taxrates;" [value]="rates.TaxRateID">
+                                    {{rates.TaxRateCode}}</option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="room_type">
+                                Description
+
+                            </label>
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="rate_name">
+                                {{taxDescr}}
+
+                            </label>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="rate_name">
+                                Tax %
+
+                            </label>
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="rate_name">
+                                {{taxper}}
+
+                            </label>
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="GracePeriodInMins">
+                                Grace Period In Mins
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Grace Period In Mins" cFormControl
+                                name="GracePeriodInMins" type="number" [(ngModel)]="rateType.GracePeriodInMins" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="IsInActive">
+                                InActive
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <c-form-check [switch]="true">
+                                <input cFormCheckInput type="checkbox" [(ngModel)]="rateType.IsInActive"
+                                    name="IsInActive" />
+                            </c-form-check>
+                        </c-col>
+                    </c-row>
+                </div>
+
+                <br>
+                <c-row class="cta">
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-light w-100 mb-1 p-1 text-black" type="button"
+                            (click)="newratetype()">
+                            <svg cIcon name="cil-paper-plane" size="sm" class="me-2" title="Paper Plane Icon"></svg>
+                            New</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-success w-100 mb-1 p-1 text-black" type="button"
+                            (click)="SaveEdit()">
+                            <svg cIcon name="cil-task" size="sm" class="me-2" title="cil-task"></svg>
+                            Save</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-warning w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-pencil" size="sm" class="me-2" title="cil-pencil"></svg>
+                            Edit</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-danger w-100 mb-1 p-1 text-black" 
+                        (click)="toggleConfirmation()" type="button">
+                            <svg cIcon name="cil-trash" size="sm" class="me-2" title="cil-trash"></svg>
+                            Delete</button>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col xs="12" md="4">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <div class="rate-type">
+                    <table cTable [responsive]="true" [bordered]="true">
+                        <thead cTableColor="dark">
+                            <tr>
+                                <th scope="col" class="text-center small">#</th>
+                                <th scope="col" class="text-center small">Room Type</th>
+                                <th scope="col" class="text-center small">Rate Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ratenm of ratetypelst;let i = index;">
+                                <th scope="row" class="small text-center">{{i+1}}</th>
+                                <td class="text-left" style="text-align: left;cursor: pointer;">
+                                    <a (click)="onEdit(ratenm.RateId)">{{ratenm.RoomType}}</a>
+                                </td>
+                                <td style="text-align: left;cursor: pointer;">
+                                    <a (click)="onEdit(ratenm.RateId)">{{ratenm.RateType}}</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col sm="4" class="mt-3 toaster" *ngIf="toasterShow">
+        <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+            <c-toast [fade]="true" [visible]="true" color="{{toasterColor}}">
+                <c-toast-body class="text-white">{{toasterText}}</c-toast-body>
+            </c-toast>
+        </c-toaster>
+    </c-col>
+</c-row>
+
+<c-row>
+
+    <c-col xs="12">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <div class="rate-table">
+                    <table cTable [responsive]="true" [bordered]="true">
+                        <thead cTableColor="dark">
+                            <tr>
+                                <th scope="col" class="text-center small">#</th>
+                                <th scope="col" class="text-center small">Season Name</th>
+                                <th scope="col" class="text-center small">From Date</th>
+                                <th scope="col" class="text-center small">To Date</th>
+                                <th scope="col" class="text-center small">Job Tax Code</th>
+                                <th scope="col" class="text-center small">Rate %</th>
+                                <th scope="col" class="text-center small"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="small">1</th>
+                                <td>
+                                    <input cFormControl type="text" class="form-control w-auto"
+                                        [(ngModel)]="seasonrate.SeasonName" id="SeasonName" name="SeasonName"
+                                        placeholder="Enter Season Name">
+                                </td>
+                                <td>
+                                    <div class="position-relative">
+                                        <input cFormControl class="form-control w-auto" name="Fromdate" ngbDatepicker
+                                            #datepicker="ngbDatepicker" [(ngModel)]="Fromdate"
+                                            (dateSelect)="onDateSelectFrom($event)"
+                                            [minDate]="{year: 1978, month: 1, day: 1}" placeholder="yyyy-mm-dd"
+                                            name="offer_from" ngbDatepicker #datepickerFrom="ngbDatepicker" />
+                                        <button class="btn btn-outline-secondary form-datepicker"
+                                            (click)="datepickerFrom.toggle()" type="button"><svg cIcon
+                                                name="cilCalendar"></svg>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="position-relative">
+                                        <input cFormControl class="form-control w-auto" placeholder="yyyy-mm-dd"
+                                            name="offer_to" ngbDatepicker [(ngModel)]="Todate"
+                                            (dateSelect)="onDateSelectTo($event)"
+                                            [minDate]="{year: 1978, month: 1, day: 1}" #datepickerTo="ngbDatepicker" />
+                                        <button class="btn btn-outline-secondary form-datepicker"
+                                            (click)="datepickerTo.toggle()" type="button"><svg cIcon
+                                                name="cilCalendar"></svg>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <select aria-label="room_type" cSelect class="form-control"
+                                        [(ngModel)]="seasonrate.TaxRateID" (click)="showTaxRateDetails()">
+                                        <option value="">Select Tax Rates</option>
+                                        <option *ngFor="let rates of taxrates;" [value]="rates.TaxRateID">
+                                            {{rates.TaxRateCode}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input cFormControl type="number" class="form-control w-auto"
+                                        [(ngModel)]="seasonrate.Ratepercent" id="Ratepercent" name="Ratepercent"
+                                        placeholder="Rate %">
+
+                                </td>
+                                <td>
+                                    <button class="btn btn-success w-auto p-1 text-white" (click)="SaveEditSeason()"
+                                        type="button">
+                                        <svg cIcon name="cilPlus" size="sm" class="me-2" title="cilPlus"></svg>
+                                        Add</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="rate-list-table">
+                    <table cTable [responsive]="true" [bordered]="true">
+                        <thead cTableColor="dark">
+                            <tr>
+                                <th scope="col" class="text-center small">#</th>
+                                <th scope="col" class="text-center small">Session Name</th>
+                                <th scope="col" class="text-center small">From Date</th>
+                                <th scope="col" class="text-center small">To Date</th>
+                                <th scope="col" class="text-center small">Job Tax Code</th>
+                                <th scope="col" class="text-center small">Rate %</th>
+                                <th scope="col" class="text-center small"></th>
+                                <th scope="col" class="text-center small"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let seitem of seasonrates;let i= index;">
+                                <th scope="row" class="small text-center">{{i+1}}</th>
+                                <td class="text-left">{{seitem.SeasonName}}</td>
+                                <td class="text-center">{{seitem.FromDate| date:dateformate }}</td>
+                                <td class="text-center">{{seitem.ToDate | date:dateformate }}</td>
+                                <td class="text-Right">{{seitem.TaxRateCode}}</td>
+                                <td class="text-Right">{{seitem.Ratepercent}} %</td>
+                                <td class="text-center">
+                                    <button class="btn btn-primary w-auto p-1 text-white"
+                                        (click)="showSeason(seitem.SeasonID)" type="button">
+                                        <svg cIcon name="cil-pencil" size="sm" class="me-2" title="cil-pencil"></svg>
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-danger w-auto p-1 text-white" type="button">
+                                        <svg cIcon name="cil-trash" size="sm" class="me-2" title="cil-trash"></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </c-card-body>
+        </c-card>
+        <c-col sm="4" class="mt-3 toaster" *ngIf="toasterShow">
+            <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+                <c-toast [fade]="true" [visible]="true" color="{{toasterColor}}">
+                    <c-toast-body class="text-white">{{toasterText}}</c-toast-body>
+                </c-toast>
+            </c-toaster>
+        </c-col>
+    </c-col>
+</c-row>
+<c-modal class="customModal" id="confirmationModal" [visible]="toggleConfirmationModal">
+    <c-modal-header>
+        <button (click)="toggleConfirmation()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>Are you sure want to delete this coupon {{ rateType.RateType }}?</c-modal-body>
+    <c-modal-footer>
+        <button (click)="toggleConfirmation()" cButton color="secondary">
+            Close
+        </button>
+        <button cButton color="danger" (click)="deleteData()">Delete</button>
+    </c-modal-footer>
+</c-modal>

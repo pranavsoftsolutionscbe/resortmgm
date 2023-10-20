@@ -1,0 +1,431 @@
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container bg-pink">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="booking_ref">
+                                Booking Ref
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="booking_ref" cSelect class="form-control"
+                            (click) = "assignBookingDates()" [(ngModel)]="selectedVoucher">
+                                <option value="">Select</option>
+                                <option *ngFor="let voclst of BookingVouchers " value={{voclst.VoucherNo}}
+                               >
+                                    {{voclst.VoucherNo}}</option>
+
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="guest_name">
+                                Guest Name
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="guest_name" cSelect class="form-control"
+                            (click) ="ShowData(custID)"   [(ngModel)]="custID">
+                                <option value="">Select Customer</option>
+                                <option *ngFor="let cust of customers " value={{cust.CustomerId}}>
+                                    {{cust.CustomerFirstName}}</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="voucher_no">
+                                Voucher No
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Voucher No" cFormControl name="voucher_no"
+                                type="text" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="room_code">
+                                Room No
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="room_code" cSelect class="form-control"
+                                [(ngModel)]="checkInDetails.RoomCode">
+                                <option value="">Select Room Type</option>
+                                <option *ngFor="let roomtyp of Rooms" value={{roomtyp.RoomId}}>
+                                    {{roomtyp.RoomName}}</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="room_type">
+                                Room Type
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="room_type" cSelect class="form-control" (click)="GetRateTypes()"
+                                [(ngModel)]="ratetypeID">
+                                <option value="">Select Room Type</option>
+                                <option *ngFor="let roomtyp of roomtypes" value={{roomtyp.RoomTypeID}}>
+                                    {{roomtyp.RoomType}}</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="room_type">
+                                Rate Type
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="room_type" cSelect class="form-control" (click)="LoadRooms()"
+                                [(ngModel)]="rateID">
+                                <option value="">Select Rate Type</option>
+                                <option *ngFor="let ratyp of ratelist
+                                " value={{ratyp.RateId}}>{{ratyp.RateType}}</option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="bill_to">
+                                Bill To
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="bill_to" cSelect class="form-control"
+                                [(ngModel)]="checkInDetails.BillTo">
+                                <option value="">Select Customer</option>
+                                <option *ngFor="let cust of customers " value={{cust.CustomerId}}>
+                                    {{cust.CustomerFirstName}}</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="checkin">
+                                Check In
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <div class="position-relative me-1">
+                                <input autocomplete="off" cFormControl class="form-control" name="checkin" ngbDatepicker
+                                    #datepickerCheckin="ngbDatepicker" placeholder="yyyy-mm-dd"
+                                    [(ngModel)]="checkInDetails.CheckinDate" />
+                                <button class="btn btn-outline-secondary form-datepicker"
+                                    (click)="datepickerCheckin.toggle()" type="button"><svg cIcon
+                                        name="cilCalendar"></svg>
+                                </button>
+                            </div>
+                            <ngb-timepicker [(ngModel)]="timeCheckIn" [spinners]="false"></ngb-timepicker>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="checkout">
+                                Check Out
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <div class="position-relative me-1">
+                                <input autocomplete="off" cFormControl class="form-control" name="checkin" ngbDatepicker
+                                    #datepickerCheckOut="ngbDatepicker" placeholder="yyyy-mm-dd"
+                                    [(ngModel)]="checkInDetails.CheckoutDate" />
+                                <button class="btn btn-outline-secondary form-datepicker"
+                                    (click)="datepickerCheckOut.toggle()" type="button"><svg cIcon
+                                        name="cilCalendar"></svg>
+                                </button>
+                            </div>
+                            <ngb-timepicker [(ngModel)]="timeCheckOut" [spinners]="false"></ngb-timepicker>
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="first_name">
+                                Guest First Name
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Guest First Name" cFormControl name="first_name"
+                                type="text" [(ngModel)]="checkInDetails.CustomerFirstName" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="last_name">
+                                Guest Last Name
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Guest Last Name" cFormControl name="last_name"
+                                type="text" [(ngModel)]="checkInDetails.CustomerSecondName" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="dob">
+                                D.O.B
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <div class="position-relative">
+                                <input autocomplete="off" cFormControl class="form-control" placeholder="yyyy-mm-dd"
+                                    name="offer_from" ngbDatepicker #datepicker="ngbDatepicker"
+                                    [(ngModel)]="checkInDetails.CustomerDOB" />
+                                <button class="btn btn-outline-secondary form-datepicker" (click)="datepicker.toggle()"
+                                    type="button"><svg cIcon name="cilCalendar"></svg>
+                                </button>
+                            </div>
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="passport_no">
+                                Passport No
+                                <!-- <i class="fa fa-star mand"></i> -->
+                            </label>
+                            <input autocomplete="off" placeholder="Passport No" cFormControl name="passport_no"
+                                type="text" [(ngModel)]="checkInDetails.PassportNo" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="address1">
+                                Address Line 1
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <textarea cFormControl type="text" placeholder="Address Line 1" name="address1"
+                                [(ngModel)]="checkInDetails.AddressLine1"></textarea>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="address2">
+                                Address Line 2
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <textarea cFormControl type="text" placeholder="Address Line 2" name="address2"
+                                [(ngModel)]="checkInDetails.AddressLine2"></textarea>
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="city">
+                                City
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="city" cSelect class="form-control" [(ngModel)]="checkInDetails.City">
+                                <option value=""></option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="country">
+                                Country
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="country" cSelect class="form-control" (change)="getstates()"
+                                [(ngModel)]="checkInDetails.CountryId">
+                                <option value="">Select Country</option>
+                                <option *ngFor="let country of countrylist" [value]="country.CountryId">
+                                    {{country.CountryName}}
+                                </option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="phone">
+                                Phone/Mobile No
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Phone No" cFormControl name="phone" type="text"
+                                [(ngModel)]="checkInDetails.PhoneNo" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="phone2">
+                                Alternative Phone
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Alternative Phone No" cFormControl name="phone2"
+                                type="text" [(ngModel)]="checkInDetails.Phone2" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="EmergencyNo">
+                                Emergency No
+                                <!-- <i class="fa fa-star mand"></i> -->
+                            </label>
+                            <input autocomplete="off" placeholder="Emergency No" cFormControl name="EmergencyNo"
+                                type="text" [(ngModel)]="checkInDetails.EmergencyNo" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="email">
+                                Email ID
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Email ID" cFormControl name="email" type="text"
+                                [(ngModel)]="checkInDetails.emailId" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-2 form-label m-0 m-2" for="remarks">
+                                Remarks
+                                <!-- <i class="fa fa-star mand"></i> -->
+                            </label>
+                            <textarea cFormControl type="text" id="remarks" name="remarks" placeholder="Enter Remarks"
+                                [(ngModel)]="checkInDetails.Remarks"></textarea>
+                        </c-col>
+                    </c-row>
+                </div>
+                <hr>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="3" class="c-block">
+                            <c-form-check>
+                                <input autocomplete="off" cFormCheckInput id="stackOne" type="checkbox"
+                                    [(ngModel)]="checkInDetails.RoomRent" />
+                                <label cFormCheckLabel for="stackOne">Pay Room Rent by Coupon</label>
+                            </c-form-check>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="3" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="CouponVoucherNo">
+                                Coupon No
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Coupon No" cFormControl name="CouponVoucherNo"
+                                type="text" [(ngModel)]="checkInDetails.CouponVoucherNo" />
+                        </c-col>
+
+                        <c-col sm="12" md="12" lg="6" class="c-block justify-content-around">
+                            <c-form-check [switch]="true">
+                                <input autocomplete="off" cFormCheckInput type="checkbox" />
+                                <label cFormCheckLabel>BreakFast</label>
+                            </c-form-check>
+                            <c-form-check [switch]="true">
+                                <input autocomplete="off" cFormCheckInput type="checkbox" />
+                                <label cFormCheckLabel>Dinner</label>
+                            </c-form-check>
+                            <c-form-check [switch]="true">
+                                <input autocomplete="off" cFormCheckInput type="checkbox" />
+                                <label cFormCheckLabel>Lunch/Dinner</label>
+                            </c-form-check>
+                            <c-form-check [switch]="true">
+                                <input autocomplete="off" cFormCheckInput type="checkbox" />
+                                <label cFormCheckLabel>All</label>
+                            </c-form-check>
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="6" md="4" lg="2" class="c-block">
+                            <label cLabel class="col-sm-6 form-label m-0 m-2" for="noof_days">
+                                No of Days
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="0" cFormControl name="noof_days" type="number"
+                                disabled />
+                        </c-col>
+
+                        <c-col sm="6" md="4" lg="2" class="c-block">
+                            <label cLabel class="col-sm-6 form-label m-0 m-2" for="price_per_bed">
+                                Price Per Bed
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="0" cFormControl name="price_per_bed" type="number"
+                                [(ngModel)]="checkInDetails.PricePreBed" />
+                        </c-col>
+
+                        <c-col sm="6" md="4" lg="2" class="c-block">
+                            <label cLabel class="col-sm-6 form-label m-0 m-2" for="extra_beds">
+                                No of Extra Beds
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="0" cFormControl name="extra_beds" type="number"
+                                [(ngModel)]="checkInDetails.NoOFExtraBed" />
+                        </c-col>
+
+                        <c-col sm="6" md="4" lg="3" class="c-block">
+                            <label cLabel class="col-sm-6 form-label m-0 m-2" for="child_bed_price">
+                                Child Price Per Bed
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="0" cFormControl name="child_bed_price" type="number"
+                                [(ngModel)]="checkInDetails.ChildPricePerBed" />
+                        </c-col>
+
+                        <c-col sm="6" md="4" lg="3" class="c-block">
+                            <label cLabel class="col-sm-6 form-label m-0 m-2" for="childs_bed">
+                                No of Childs bed
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="0" cFormControl name="childs_bed" type="number"
+                                [(ngModel)]="checkInDetails.NoOFChilds" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <br>
+                <div class="table-details">
+                    <table cTable [responsive]="true">
+                        <thead cTableColor="dark">
+                            <tr>
+                                <th scope="col" class="text-center small">Date</th>
+                                <th scope="col" class="text-center small">Rate</th>
+                                <th scope="col" class="text-center small">Rate for Bed</th>
+                                <th scope="col" class="text-center small">Rate for Child</th>
+                                <th scope="col" class="text-center small">Tax</th>
+                                <th scope="col" class="text-center small">S Charge</th>
+                                <th scope="col" class="text-center small">BreakFast</th>
+                                <th scope="col" class="text-center small">Lunch</th>
+                                <th scope="col" class="text-center small">Dinner</th>
+                                <th scope="col" class="text-center small">Spl Dinner</th>
+                                <th scope="col" class="text-center small">Service Charge</th>
+                                <th scope="col" class="text-center small">Tax</th>
+                                <th scope="col" class="text-center small">Net Rate</th>
+                                <th scope="col" class="text-center small">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <c-row class="cta">
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-light w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-paper-plane" size="sm" class="me-2" title="Paper Plane Icon"></svg>
+                            New</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-success w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-task" size="sm" class="me-2" title="cil-task"></svg>
+                            Save</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-warning w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-pencil" size="sm" class="me-2" title="cil-pencil"></svg>
+                            Edit</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-danger w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-trash" size="sm" class="me-2" title="cil-trash"></svg>
+                            Delete</button>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+
+<c-col sm="4" class="mt-3 toaster" *ngIf="toasterShow">
+    <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+        <c-toast [fade]="true" [visible]="true" color="{{toasterColor}}">
+            <c-toast-body class="text-white">{{toasterText}}</c-toast-body>
+        </c-toast>
+    </c-toaster>
+</c-col>

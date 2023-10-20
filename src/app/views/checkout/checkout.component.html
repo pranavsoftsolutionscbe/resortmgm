@@ -1,0 +1,203 @@
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="booking_ref">
+                                Search By<br> Booking Ref
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="booking_ref" cSelect class="form-control">
+                                <option value=""></option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="guest_name">
+                                Guest Name
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="guest_name" cSelect class="form-control">
+                                <option value=""></option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="voucher_no">
+                                Voucher No
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Voucher No" cFormControl name="voucher_no"
+                                type="text" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="room_code">
+                                Room Code
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="room_code" cSelect class="form-control">
+                                <option value=""></option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="room_type">
+                                Room Type
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="room_type" cSelect class="form-control">
+                                <option value=""></option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="coupon_no">
+                                Coupon No
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Voucher No" cFormControl name="coupon_no"
+                                type="text" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="checkin">
+                                Check In
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <div class="position-relative me-1">
+                                <input autocomplete="off" cFormControl class="form-control" name="checkin" ngbDatepicker
+                                    #datepickerCheckin="ngbDatepicker" placeholder="yyyy-mm-dd" />
+                                <button class="btn btn-outline-secondary form-datepicker"
+                                    (click)="datepickerCheckin.toggle()" type="button"><svg cIcon
+                                        name="cilCalendar"></svg>
+                                </button>
+                            </div>
+                            <ngb-timepicker [(ngModel)]="timeCheckIn" [spinners]="false"></ngb-timepicker>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="checkout">
+                                Check Out
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <div class="position-relative me-1">
+                                <input autocomplete="off" cFormControl class="form-control" name="checkin" ngbDatepicker
+                                    #datepickerCheckOut="ngbDatepicker" placeholder="yyyy-mm-dd" />
+                                <button class="btn btn-outline-secondary form-datepicker"
+                                    (click)="datepickerCheckOut.toggle()" type="button"><svg cIcon
+                                        name="cilCalendar"></svg>
+                                </button>
+                            </div>
+                            <ngb-timepicker [(ngModel)]="timeCheckOut" [spinners]="false"></ngb-timepicker>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="staying_days">
+                                Staying Days
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="0" cFormControl name="staying_days" type="text"
+                                disabled />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="passport_no">
+                                Passport No
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Passport No" cFormControl name="passport_no"
+                                type="text" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="address">
+                                Address
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <textarea cFormControl type="text" placeholder="Address" name="address"></textarea>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="remarks">
+                                Remarks
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <textarea cFormControl type="text" placeholder="Remarks" name="remarks"></textarea>
+                        </c-col>
+                    </c-row>
+                </div>
+                <br>
+                <div class="checkout-table">
+                    <table cTable [responsive]="true">
+                        <thead cTableColor="dark">
+                            <tr>
+                                <th scope="col" class="text-center small">Entry Date</th>
+                                <th scope="col" class="text-center small">Voucher No.</th>
+                                <th scope="col" class="text-center small">Description</th>
+                                <th scope="col" class="text-center small">Credit</th>
+                                <th scope="col" class="text-center small">Debit</th>
+                                <th scope="col" class="text-center small">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <c-row class="cta">
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-light w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-paper-plane" size="sm" class="me-2" title="Paper Plane Icon"></svg>
+                            New</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-success w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-task" size="sm" class="me-2" title="cil-task"></svg>
+                            Save</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-warning w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-pencil" size="sm" class="me-2" title="cil-pencil"></svg>
+                            Edit</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-danger w-100 mb-1 p-1 text-black" type="button">
+                            <svg cIcon name="cil-trash" size="sm" class="me-2" title="cil-trash"></svg>
+                            Delete</button>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>
+<c-col sm="4" class="mt-3 toaster" *ngIf="toasterShow">
+    <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+        <c-toast [fade]="true" [visible]="true" color="{{toasterColor}}">
+            <c-toast-body class="text-white">{{toasterText}}</c-toast-body>
+        </c-toast>
+    </c-toaster>
+</c-col>

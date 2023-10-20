@@ -1,0 +1,423 @@
+<c-row>
+    <c-col xs="12" md="8">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <c-row class="d-flex m-0 row w-100 align-items-center justify-content-around">
+                    <div class="row date-section col-sm-12 col-md-8">
+                        <c-col sm="12" md="6" lg="6" class="check-in">
+                            <span class="lightColor">CHECK-IN</span><br>
+                            <div class="d-flex">
+                                <div class="position-relative">
+                                    <input cFormControl class="form-control col-sm-5" ngbDatepicker
+                                        #datepickerCheckIn="ngbDatepicker" name="dtOfferFrom" [(ngModel)]="dtOfferFrom"
+                                        (dateSelect)="onDateSelectFrom($event)" [minDate]="minDate" />
+                                    <button class="btn btn-outline-secondary form-datepicker"
+                                        (click)="datepickerCheckIn.toggle()" type="button"><svg cIcon
+                                            name="cilCalendar"></svg>
+                                    </button>
+                                </div>
+                                <ngb-timepicker [(ngModel)]="timeCheckIn" [spinners]="false"
+                                    (change)="LoadDate()"></ngb-timepicker>
+                            </div>
+                        </c-col>
+                        <c-col sm="12" md="6" lg="6" class="check-out">
+                            <span class="lightColor">CHECK-OUT</span><br>
+                            <div class="d-flex">
+                                <div class="position-relative">
+                                    <input cFormControl class="form-control col-sm-5" ngbDatepicker
+                                        #datepickerCheckOut="ngbDatepicker" name="dtOfferTo" ngbDatepicker
+                                        #datepickerOfferTo="ngbDatepicker" [(ngModel)]="dtOfferTo"
+                                        (dateSelect)="onDateSelectTo($event)" [minDate]="dtOfferFrom" />
+                                    <button class="btn btn-outline-secondary form-datepicker"
+                                        (click)="datepickerCheckOut.toggle()" type="button"><svg cIcon
+                                            name="cilCalendar"></svg>
+                                    </button>
+                                </div>
+                                <ngb-timepicker [(ngModel)]="timeCheckOut" [spinners]="false"
+                                    (change)="LoadDate()"></ngb-timepicker>
+                            </div>
+                        </c-col>
+                    </div>
+                    <!-- <div class="col-sm-2 mt-2"> -->
+                    <c-col sm="12" md="2" lg="2" class="d-flex justify-content-center mt-3 p-0">
+                        <span class="lightColor hours">
+                            Days - <b> {{days}}</b>
+                            <span class="ps-2" *ngIf="extraHrs">hours - <b>{{ extraHrs }}</b></span>
+                        </span><br>
+                    </c-col>
+                    <!-- </div> -->
+                    <div class="col-sm-2 mt-2">
+                        <c-col class="float-end">
+                            <button class="btn btn-outline-secondary" (click)="back()">
+                                <svg cIcon name="cilArrowLeft"></svg> Back
+                            </button>
+                        </c-col>
+                    </div>
+                </c-row>
+                <br>
+                <hr>
+                <c-row class="room-detail">
+                    <c-col xs="12" sm="12" md="4" class="mb-2">
+                        <img [src]="roomImagePath" width="100%">
+                    </c-col>
+                    <c-col xs="12" sm="12" md="8" class="headingColor mb-2">
+                        <c-row class="d-flex m-0 row w-100 align-items-center justify-content-around">
+                            <c-col xs="6" sm="6" md="6" class="mb-2 d-flex align-items-center">
+                                <label cLabel class="col-sm-4 form-label m-0 m-2" for="room_name">
+                                    <b>Room</b>
+                                </label>
+                                <label cLabel class="col-sm-6 form-label m-0 m-2" for="room_name">
+                                    {{room?.RoomName}}
+                                </label>
+                            </c-col>
+                            <c-col xs="6" sm="6" md="6" class="mb-2 d-flex align-items-center">
+                                <label cLabel class="col-sm-4 form-label m-0 m-2" for="capacity">
+                                    <b>Capacity</b>
+                                </label>
+                                <label cLabel class="col-sm-6 form-label m-0 m-2" for="capacity">
+                                    {{room?.Capacity}}
+                                </label>
+                            </c-col>
+                        </c-row>
+                        <c-row class="d-flex m-0 row w-100 align-items-center justify-content-around">
+                            <c-col xs="6" sm="6" md="6" class="mb-2 d-flex align-items-center">
+                                <label cLabel class="col-sm-4 form-label m-0 m-2" for="adults">
+                                    <b>Adults({{room?.MaxBed}})</b>
+                                </label>
+                                <label cLabel class="col-sm-6 form-label m-0 m-2" for="adults">
+                                    Extra Price/Bed {{room?.PricePerBed}}
+                                </label>
+                            </c-col>
+                            <c-col xs="6" sm="6" md="6" class="mb-2 d-flex align-items-center">
+                                <label cLabel class="col-sm-4 form-label m-0 m-2" for="childs">
+                                    <b>Childs({{room?.NoOFChilds}})</b>
+                                </label>
+                                <label cLabel class="col-sm-6 form-label m-0 m-2" for="childs">
+                                    Extra Price/Bed {{room?.ChildPricePerBed}}
+                                </label>
+                            </c-col>
+                        </c-row>
+                        <!-- <div class="packagesHeading-cart">{{room.RoomName}}</div>
+                        <div class="packagesDesc"[innerHTML] = "room.Description" >
+                             {{room.TotalAreainSqft}}
+                        </div> -->
+                        <div class="packagesDesc" [innerHTML]="room?.Description"></div>
+                    </c-col>
+                    <!-- <c-col xs="12" sm="3" md="2"> -->
+                    <!-- <label cLabel class="col-sm-12" for="rooms">
+                            Room(s)
+                        </label>
+                        <div class="col-sm-12">
+                            <select aria-label="rooms Ref" cSelect class="form-control">
+                                <option value=""></option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div> -->
+                    <!-- </c-col> -->
+                </c-row>
+                <hr>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="adult">
+                                Adults ({{room?.MaxBed}})
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Adults (xx)" cFormControl name="adult"
+                                name="MaxBed" [(ngModel)]="booking.NoOfGuest" type="number" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="children">
+                                Children ({{room?.NoOFChilds}})
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Children (xx)" cFormControl name="children"
+                                name="MaxBed" [(ngModel)]="booking.NoOFChilds" type="number" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="bed_configuration">
+                                Coupon
+                            </label>
+                            <input autocomplete="off" placeholder="Enter the Code" cFormControl name="adult" type="text"
+                                [(ngModel)]="booking.CouponVoucherNo" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="guest_name">
+                                Guest Name
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Guest Name" cFormControl name="guest_name"
+                                type="text" [(ngModel)]="booking.CustomerFirstName" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="last_name">
+                                Last Name
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Last Name" cFormControl name="last_name"
+                                type="text" [(ngModel)]="booking.CustomerSecondName" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="children">
+                                Phone
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Phone Number" [(ngModel)]="booking.PhoneNo"
+                                name="phone" cFormControl type="number" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="address1">
+                                Address Line 1
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <textarea cFormControl type="text" placeholder="Address Line 1" name="address1"
+                                [(ngModel)]="booking.AddressLine1"></textarea>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="address2">
+                                Address Line 2
+                            </label>
+                            <textarea cFormControl type="text" placeholder="Address Line 2" name="address2"
+                                [(ngModel)]="booking.AddressLine2"></textarea>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="Passport">
+                                Passport
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Passport (xx)" cFormControl name="Passport"
+                                type="text" [(ngModel)]="booking.PassportNo" />
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="6" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="bed_configuration">
+                                Email
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Email Id" cFormControl name="last_name"
+                                type="email" [(ngModel)]="booking.emailId" />
+                        </c-col>
+
+                        <c-col sm="12" md="12" lg="12" class="c-block justify-content-around">
+                            <c-form-check [switch]="true" style="padding-right: 5px">
+                                <input autocomplete="off" cFormCheckInput type="checkbox"
+                                    (change)="onItemChange($event, 'breakfast')"
+                                    [(ngModel)]="booking.IsBreakFastIncluded" name="IsBreakFastIncluded" />
+                                <label cFormCheckLabel>Breakfast</label>
+                            </c-form-check>
+
+                            <c-form-check [switch]="true" style="padding-right: 5px">
+                                <input autocomplete="off" cFormCheckInput type="checkbox"
+                                    (change)="onItemChange($event, 'dinner')" [(ngModel)]="booking.IsDinnerInclude"
+                                    name="IsDinnerInclude" />
+                                <label cFormCheckLabel>Dinner</label>
+                            </c-form-check>
+
+                            <c-form-check [switch]="true" style="padding-right: 5px">
+                                <input autocomplete="off" cFormCheckInput type="checkbox"
+                                    (change)="onItemChange($event, 'lunch')" [(ngModel)]="booking.IsLunchInclude"
+                                    name="IsLunchInclude" />
+                                <label cFormCheckLabel>Lunch/Dinner</label>
+                            </c-form-check>
+
+                            <c-form-check [switch]="true" style="padding-right: 5px">
+                                <input autocomplete="off" cFormCheckInput type="checkbox"
+                                    (change)="onItemChange($event, 'all')" [(ngModel)]="booking.IsAllInclude"
+                                    name="IsAllInclude" />
+                                <label cFormCheckLabel>All</label>
+                            </c-form-check>
+                        </c-col>
+                    </c-row>
+                </div>
+                <hr>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="12" lg="12">
+                            <label cLabel class="col-sm-12" for="special_request">
+                                Special Request
+                            </label>
+                            <input cFormControl id="special_request" placeholder="Enter Special Request" type="text" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <br>
+                <div class="d-flex m-0 row w-100 totalsummery border p-3">
+                    <c-row class="container m-0">
+                        <c-col sm="9" class="title">
+                            Executive Cottages
+                        </c-col>
+                        <c-col sm="3">
+                            <div class="text-end room_package_total">
+                                INR<span> {{roomRate | number: '1.2-2'}} </span>
+                            </div>
+                        </c-col>
+                    </c-row>
+                    <hr>
+                    <c-row class="container m-0">
+                        <c-col sm="9" class="title">
+                            {{taxDesc}}
+                        </c-col>
+                        <c-col sm="3">
+                            <div class="text-end package_total">
+                                INR<span> {{TaxAmount|number: '1.2-2'}}</span>
+                            </div>
+                        </c-col>
+                    </c-row>
+                    <hr>
+                    <c-row class="container m-0">
+                        <c-col sm="9" class="title">
+                            {{extratext}}
+                        </c-col>
+                        <c-col sm="3">
+                            <div class="text-end onlyPkgPricetext">
+                                INR<span> {{extraAmount|number: '1.2-2'}}</span>
+                            </div>
+                        </c-col>
+                    </c-row>
+                    <hr>
+                    <c-row class="container m-0">
+                        <c-col sm="9" class="title">
+                            Total
+                        </c-col>
+                        <c-col sm="3">
+                            <div class="text-end onlyPkgPricetext">
+                                INR<span> {{TotalAmount|number: '1.2-2'}}</span>
+                            </div>
+                        </c-col>
+                    </c-row>
+                </div>
+            </c-card-body>
+        </c-card>
+    </c-col>
+
+    <c-col xs="12" md="4">
+        <c-card class="mb-3">
+            <c-card-body>
+                <c-row class="cartRightHeader">
+                    <div class="packages" id="myTotalBox">
+                        <span class="propertytitle">SURADA Resorts</span>
+                        <hr>
+                        <div class="roompackageheading">Breakfast Included - Executive Cottages</div>
+                        <div class="itineraryDates">
+                            <div class="col-md-6 col-xs-6 date-label">
+                                <span class="lightColor font12 itinerary-label colabel">CHECK-IN </span>
+                                <span class="lightColor font12 itinerary-label cocontect">
+                                    {{ booking.CheckinDate ? (booking.CheckinDate | date:dateformate) : '' }}
+                                    <span>{{ timeCheckIn.hour > 0 ? timeCheckIn.hour : '00' }} : {{
+                                        timeCheckIn.minute > 0 ? timeCheckIn.minute : '00' }}</span>
+                                </span>
+                            </div>
+                            <div class="checkoutseprator me-1"></div>
+                            <div class="col-md-6 col-xs-6 date-label text-end pe-1">
+                                <span class="lightColor font12 itinerary-label colabel">CHECK-OUT</span>
+                                <span class="lightColor font12 itinerary-label cocontect">
+                                    {{ booking.CheckoutDate ? (booking.CheckoutDate | date:dateformate) : '' }}
+                                    <span>{{ timeCheckOut.hour > 0 ? timeCheckOut.hour : '00' }} : {{
+                                        timeCheckOut.minute > 0 ? timeCheckOut.minute : '00'}}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="cartDetailsContent">
+                            <div id="roomPrice">
+                                <div class="roomPricecart total-amount col-md-12 col-xs-12">
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="from">Executive Cottages</div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12 text-end">
+                                        <div class="room_box BBTax"> INR <span class="list-val"> {{roomRate|number:
+                                                '1.2-2'}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="extraHrs" *ngIf="extraHrs">
+                                <div class="roomPricecart total-amount col-md-12 col-xs-12">
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="from">Extra Hrs({{extraHrs}})</div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12 text-end">
+                                        <div class="room_box BBTax"> INR <span class="list-val">
+                                                {{extraHrsAmount|number:
+                                                '1.2-2'}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tTax_">
+                                <div class="roomPricecart total-amount col-md-12 col-xs-12">
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="from"> Total Tax </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12 text-end">
+                                        <div class="room_box totaltaxamount">INR <span> {{ TaxAmount|number:
+                                                '1.2-2'}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="roomwisedisplay">
+                                <div class="roomPriceCol">
+                                    <div class="roomPricecart  total-amount col-md-12 col-xs-12">
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="from"> Total</div>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12 text-end">
+                                            <div class="room_box roomprice">INR <span> {{ TotalAmount|number:
+                                                    '1.2-2'}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="totalamount">
+                            <div class="col-md-6 col-xs-12">
+                                <div class="itinerayFrom from"> {{extratext}}</div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 text-end">
+                                <div class="packages_box" id="totalwithoutTax">INR<span
+                                        class="amount-val">{{extraAmount|number: '1.2-2'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="totalamount">
+                            <div class="col-md-6 col-xs-12">
+                                <div class="itinerayFrom from">Amount</div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 text-end">
+                                <div class="packages_box" id="totalwithoutTax">INR<span
+                                        class="amount-val">{{TotalAmount|number: '1.2-2'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="completebooking mt-3">
+                            <!-- <button class="btn">Book More</button> -->
+                            <div class="clear"></div>
+                            <button id="booknow" class="btn" [class.disabled]="disableSubmit"
+                                (click)="submit()">{{bookingtext}}</button>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+
+    <c-col sm="4" class="mt-3 toaster" *ngIf="toasterShow">
+        <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+            <c-toast [fade]="true" [visible]="true" color="{{toasterColor}}">
+                <c-toast-body class="text-white">{{toasterText}}</c-toast-body>
+            </c-toast>
+        </c-toaster>
+    </c-col>
+</c-row>
+
+<section style="display: none;">
+    <app-invoice [booking]="booking" [room]="room" [amount]="roomRate" [days]="days" [TaxAmount]="TaxAmount"
+        [TotalAmount]="TotalAmount"></app-invoice>
+</section>

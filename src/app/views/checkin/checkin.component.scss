@@ -1,0 +1,35 @@
+.bg-pink {
+    background: #dd757547;
+    padding: 10px 5px;
+}
+
+.container-row {
+    padding: 5px;
+    margin: 0.1rem 0;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.table-details {
+    width: 100%;
+    max-height: 200px;
+    overflow: auto;
+
+    table {
+        thead {
+            th {
+                border: 1px solid #000;
+            }
+        }
+
+        tbody {
+            .date_details {
+                td {
+                    font-size: 12px;
+                    width: 15%;
+                    border: 1px solid #000;
+                }
+            }
+        }
+    }
+}

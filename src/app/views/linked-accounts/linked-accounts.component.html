@@ -1,0 +1,55 @@
+<c-row>
+    <c-col xs>
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        <table cTable [responsive]="true" [bordered]="true">
+                            <thead cTableColor="dark">
+                                <tr>
+                                    <th scope="col" class="text-center small">#</th>
+                                    <th scope="col" class="text-center small">Description</th>
+                                    <th scope="col" class="text-center small">Account Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let linkaccount of linkaccounts;let i = index;">
+                                    <th scope="row" class="small">{{i+1}}</th>
+                                    <td>
+                                        <input cFormControl type="text" class="form-control" id="description"
+                                            name="description" placeholder="Description" [(ngModel)]="linkaccount.Name">
+                                    </td>
+                                    <td>
+                                        <select aria-label="account_code" class="form-control" cSelect
+                                            [(ngModel)]="linkaccount.AccountCode" id="account_code" name="account_code"
+                                            required>
+                                            <option value="">Select Account Code</option>
+                                            <option *ngFor="let acc of accounts" value={{acc.Code}}>{{acc.Description}}
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-info col-sm-2 p-1 text-white" (click)="UpdateAccounts()"
+                                type="button">
+                                <svg cIcon name="cil-task" size="sm" class="me-2" title="cil-task"></svg>
+                                Update</button>
+                        </div>
+                    </div>
+                </div>
+            </c-card-body>
+        </c-card>
+    </c-col>
+
+    <c-col sm="4" class="mt-3 toaster" *ngIf="toasterShow">
+        <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+            <c-toast [fade]="true" [visible]="true" color="{{toasterColor}}">
+                <c-toast-body class="text-white">{{toasterText}}</c-toast-body>
+            </c-toast>
+        </c-toaster>
+    </c-col>
+</c-row>

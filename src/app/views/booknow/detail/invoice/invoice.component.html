@@ -1,0 +1,563 @@
+<section id="invoice-container">
+    <div>
+        <!-- Header -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+            bgcolor="#e1e1e1">
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+                        bgcolor="#ffffff">
+                        <tr>
+                            <td>
+                                <table width="90%" border="0" cellpadding="0" cellspacing="0" align="center"
+                                    class="fullPadding">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table width="60%" border="0" cellpadding="0" cellspacing="0"
+                                                    align="left" class="col">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="left"> <img
+                                                                    src="https://suradaresorts.com/resortmgm/assets/images/surada/logo.jpg"
+                                                                    width="200px" alt="SURADA" border="0" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td height="15"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td
+                                                                style="font-size: 14px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+                                                                <small style="color: blue;">SAC Code:
+                                                                    998315</small><br />
+                                                                <small style="color: blue;">PAN No: AACCO1416F</small>
+                                                                <small style="color: blue;"> GSTIN:
+                                                                    29AACCO1416F1ZQ</small><br />
+                                                                <small style="color: blue;">IEC : AACCO1416F dtd
+                                                                    31-03-2021</small><br />
+                                                                <small style="color: blue;">LUT: AD290323038020M Dtd:
+                                                                    30-03-2023</small><br />
+                                                                <small style="color: blue;">MSME No :
+                                                                    UDYAM-KR-03-0067492 dtd
+                                                                    03-05-2021</small>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table width="40%" border="0" cellpadding="0" cellspacing="0"
+                                                    align="right" class="col">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td
+                                                                style="font-size: 21px; color: #ff0000; letter-spacing: -1px; font-family: 'Open Sans', sans-serif; line-height: 1; vertical-align: top; text-align: right;">
+                                                                Booking
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td height="15"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td
+                                                                style="color: blue; font-size: 18px; padding: 10px; font-weight: bold;text-align: right;">
+                                                                Booking # 124513694
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td
+                                                                style="font-size: 14px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right;">
+                                                                <small>{{ contactDetails.Address1 }},</small><br />
+                                                                <small>{{ contactDetails.Address2 }},</small><br />
+                                                                <small>{{ contactDetails.Address3 }},</small><br />
+                                                                <small>E-mail: {{ contactDetails.email }}</small><br />
+                                                                <small>{{ contactDetails.Contactmail }}</small><br />
+                                                                <small>Phone: {{ contactDetails.Phone1 }}</small><br />
+                                                                <small>{{ contactDetails.Phone2 }}</small><br />
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!-- /Header -->
+        <!-- Information -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+            bgcolor="#e1e1e1">
+            <tbody>
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+                            bgcolor="#ffffff">
+                            <tbody>
+                                <tr>
+                                <tr class="hiddenMobile">
+                                    <td height="30"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="90%" border="0" cellpadding="0" cellspacing="0" align="center"
+                                            class="fullPadding">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <table width="40%" border="0" cellpadding="0" cellspacing="0"
+                                                            align="left" class="col" style="background: aliceblue;">
+
+                                                            <tbody>
+                                                                <tr class="visibleMobile">
+                                                                    <td height="20"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style="font-size: 14px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; font-weight: bold; padding: 0 15px;">
+                                                                        <strong>BILLING INFORMATION</strong>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="100%" height="10"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top;padding: 10px;
+                                                                        letter-spacing: 1px; ">
+                                                                        {{ booking.CustomerFirstName }} {{
+                                                                        booking.CustomerSecondName }}<br> {{
+                                                                        booking.AddressLine1 }}<br> {{
+                                                                        booking.AddressLine2
+                                                                        }}.<br>{{ booking.emailId }} <br> T: {{
+                                                                        booking.PhoneNo
+                                                                        }}
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+
+                                                        <table width="40%" border="0" cellpadding="0" cellspacing="0"
+                                                            align="right" class="col" style="background: aliceblue;">
+                                                            <tbody>
+                                                                <tr class="visibleMobile">
+                                                                    <td height="20"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style="font-size: 14px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; font-weight: bold; padding: 0 15px;">
+                                                                        <strong>PAYMENT METHOD</strong>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="100%" height="10"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top;padding: 10px;
+                                                                        letter-spacing: 1px; ">
+                                                                        Credit Card<br> Credit Card Type: Visa<br>
+                                                                        Worldpay
+                                                                        Transaction ID: <a href="#"
+                                                                            style="color: #ff0000; text-decoration:underline;">4185939336</a><br>
+                                                                        <a href="#" style="color:#b0b0b0;">Right of
+                                                                            Withdrawal</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- /Total -->
+        <!-- Order Details -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+            bgcolor="#e1e1e1">
+            <tbody>
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable"
+                            bgcolor="#ffffff">
+                            <tbody>
+                                <tr>
+                                    <td height="60"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="90%" border="0" cellpadding="0" cellspacing="0"
+                                            class="fullPadding" align="center">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #fff; background:#5b5b5b; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border: 0.3px solid #fff;"
+                                                        width="52%" rowspan="2">
+                                                        Room Type
+                                                    </th>
+                                                    <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #fff; background:#5b5b5b; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px;border: 0.3px solid #fff;"
+                                                        rowspan="2" width="15%">
+                                                        <small>Rate/Day</small>
+                                                    </th>
+                                                    <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #fff; background:#000; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px;border: 0.3px solid #fff;"
+                                                        colspan="2" width="30%">
+                                                        Tax
+                                                    </th>
+                                                    <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #fff; background:#5b5b5b; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px;border: 0.3px solid #fff;"
+                                                        rowspan="2" width="15%">
+                                                        Nights
+                                                    </th>
+                                                    <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #fff; background:#5b5b5b; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px;border: 0.3px solid #fff;"
+                                                        rowspan="2" width="20%">
+                                                        Amount
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; background:#E2EFDA; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border: 0.3px solid #5b5b5b85;"
+                                                        width="10%">
+                                                        Code</th>
+                                                    <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; background:#E2EFDA; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border: 0.3px solid #5b5b5b85;"
+                                                        width="10%">
+                                                        %</th>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        {{ room.RoomName }}<br>
+                                                        <span style="font-size: 12px;">(Allowed Adults {{room.MaxBed}}
+                                                            Childs {{room.NoOFChilds}})</span>
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ room.Rate | number: '1.2-2' }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ room.taxcode }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ room.taxpercent }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ days }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ amount + TaxAmount | number: '1.2-2' }}
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="booking.NoOfGuest > room.MaxBed">
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        <span>
+                                                            Extra Adults {{ booking.NoOfGuest - room.MaxBed }}
+                                                        </span>
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;text-align: right ">
+                                                        <span>
+                                                            {{ (booking.NoOfGuest - room.MaxBed) * room.PricePerBed |
+                                                            number: '1.2-2' }}
+                                                        </span>
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ room.taxcode }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ room.taxpercent }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ days }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ ((booking.NoOfGuest - room.MaxBed) *
+                                                        room.PricePerBed) +
+                                                        (room.PricePerBed * (room.taxpercent / 100))
+                                                        |
+                                                        number: '1.2-2' }}
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="booking.NoOFChilds > room.NoOFChilds">
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        <span>
+                                                            Extra Childs {{ (booking.NoOFChilds - room.NoOFChilds) }}
+                                                        </span>
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: right;">
+                                                        <span>
+                                                            {{ (booking.NoOFChilds - room.NoOFChilds) *
+                                                            room.ChildPricePerBed
+                                                            | number:
+                                                            '1.2-2' }}
+                                                        </span>
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ room.taxcode }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ room.taxpercent }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ days }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ ((booking.NoOFChilds - room.NoOFChilds) *
+                                                        room.ChildPricePerBed) + (room.ChildPricePerBed *
+                                                        (room.taxpercent / 100))
+                                                        |
+                                                        number: '1.2-2' }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: #FAFAFA; font-weight: bold;">
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        Total Persons
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: center;">
+                                                        {{ (room.MaxBed + room.NoOFChilds) + (booking.NoOfGuest >
+                                                        room.MaxBed ?
+                                                        (booking.NoOfGuest - room.MaxBed) : 0) + (booking.NoOFChilds
+                                                        >
+                                                        room.NoOFChilds ?
+                                                        (booking.NoOFChilds - room.NoOFChilds) : 0)}}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        Sub Total
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85;">
+                                                        {{TotalAmount |
+                                                        number: '1.2-2'}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px; height: 30px;">
+                                                    </td>
+                                                    <td style="padding: 5px;
+                                                        border-left: 1px solid #5b5b5b85;
+                                                        border-bottom: 1px solid #5b5b5b85;
+                                                        font-size: 12px;
+                                                        font-weight: bold;
+                                                        font-style: italic;background: #fafafa;">
+                                                        Food Type
+                                                    </td>
+                                                    <td style="padding: 5px;
+                                                        border-left: 1px solid #5b5b5b85;
+                                                        border-bottom: 1px solid #5b5b5b85;
+                                                        font-size: 12px;
+                                                        font-weight: bold;
+                                                        font-style: italic;background: #fafafa;">
+                                                        Rate/Day</td>
+                                                    <td style="padding: 5px;
+                                                        border-left: 1px solid #5b5b5b85;
+                                                        border-bottom: 1px solid #5b5b5b85;
+                                                        font-size: 12px;
+                                                        font-weight: bold;
+                                                        font-style: italic;background: #fafafa;">
+                                                        Tax Code</td>
+                                                    <td style="padding: 5px;
+                                                        border-left: 1px solid #5b5b5b85;
+                                                        border-bottom: 1px solid #5b5b5b85;
+                                                        font-size: 12px;
+                                                        font-weight: bold;
+                                                        font-style: italic;background: #fafafa;">
+                                                        Tax %
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85;">
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="booking.IsBreakFastIncluded">
+                                                    <td style="padding: 5px; height: 30px;">
+                                                    </td>
+                                                    <td style="padding: 5px; height: 30px;">
+                                                        BreakFast
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ room.BreakFastRate | number: '1.2-2' }}
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        {{ room.taxcode }}
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        {{ room.taxpercent }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ breakfastAmount * (booking.NoOfGuest + booking.NoOFChilds) |
+                                                        number: '1.2-2' }}
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="booking.IsLunchInclude">
+                                                    <td style="padding: 5px; height: 30px;">
+                                                    </td>
+                                                    <td style="padding: 5px; height: 30px;">
+                                                        Lunch
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ room.LunchRate | number: '1.2-2' }}
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        {{ room.taxcode }}
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        {{ room.taxpercent }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ lunchAmount * (booking.NoOfGuest + booking.NoOFChilds) |
+                                                        number: '1.2-2' }}
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="booking.IsDinnerInclude">
+                                                    <td style="padding: 5px; height: 30px;">
+                                                    </td>
+                                                    <td style="padding: 5px; height: 30px;">
+                                                        Dinner
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ room.DinnerRate | number: '1.2-2' }}
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        {{ room.taxcode }}
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        {{ room.taxpercent }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ dinnerAmount * (booking.NoOfGuest + booking.NoOFChilds) |
+                                                        number: '1.2-2' }}
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="booking.IsAllInclude">
+                                                    <td style="padding: 5px; height: 30px;">
+                                                    </td>
+                                                    <td style="padding: 5px; height: 30px;">
+                                                        All
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ allRate | number: '1.2-2' }}
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        {{ room.taxcode }}
+                                                    </td>
+                                                    <td
+                                                        style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; font-weight: normal; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;">
+                                                        {{ room.taxpercent }}
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85; text-align: right;">
+                                                        {{ allAmount * (booking.NoOfGuest + booking.NoOFChilds) |
+                                                        number: '1.2-2' }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px; height: 30px;">
+                                                    </td>
+                                                    <td style="padding: 5px; height: 30px;">
+                                                    </td>
+                                                    <td style="padding: 5px; height: 30px;">
+                                                    </td>
+                                                    <td style="height: 30px; font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 1; vertical-align: middle; text-align: center; padding: 5px;letter-spacing: 0.5px; border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85; font-weight: bold;"
+                                                        colspan="2">
+                                                        <b>Total Amount</b>
+                                                    </td>
+                                                    <td
+                                                        style="padding: 5px; height: 30px;border-left: 1px solid #5b5b5b85;border-bottom: 1px solid #5b5b5b85;border-right: 1px solid #5b5b5b85; text-align: right;font-weight: bold; color: #000;">
+                                                        {{ TotalAmount | number: '1.2-2' }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

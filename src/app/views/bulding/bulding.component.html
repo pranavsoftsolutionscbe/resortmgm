@@ -1,0 +1,472 @@
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-3">
+            <c-card-body class="p-4">
+                <c-nav variant="pills" class="p-0">
+                    <c-nav-item>
+                        <a [cTabContent]="tabContent3" class="tabpanel m-1 ms-0" [routerLink] [tabPaneIdx]="0" cNavLink>
+                            <svg cIcon class="me-2" name="cilHome"></svg>
+                            Common
+                        </a>
+                    </c-nav-item>
+                    <c-nav-item>
+                        <a [cTabContent]="tabContent3" class="tabpanel m-1 ms-0" [routerLink] [tabPaneIdx]="1" cNavLink>
+                            <svg cIcon class="me-2" name="cilApps"></svg>
+                            Specification
+                        </a>
+                    </c-nav-item>
+                    <c-nav-item>
+                        <a [cTabContent]="tabContent3" class="tabpanel m-1 ms-0" [routerLink] [tabPaneIdx]="2" cNavLink>
+                            <svg cIcon class="me-2" name="cilSend"></svg>
+                            Save Details
+                        </a>
+                    </c-nav-item>
+                </c-nav>
+                <c-tab-content #tabContent3="cTabContent" class="row" cRounded="bottom" [activeTabPaneIdx]="0">
+                    <c-tab-pane class="p-3 ps-0 pe-0" role="tabpanel">
+                        <c-row class="ps-0 pe-0 m-0">
+                            <c-col xs="12" md="8" class="ps-0 pe-0">
+                                <c-card class="mb-3">
+                                    <c-card-body>
+                                        <div class="d-flex m-0 row w-100 justify-content-around">
+                                            <c-row class="container">
+                                                <c-col sm="12" md="12" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="customer">
+                                                        Customer
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <select aria-label="customer" cSelect class="form-control"
+                                                        (click)="GetBuldingList()" [(ngModel)]="bulding.CustomerID">
+                                                        <option value="">Select Customer</option>
+                                                        <option *ngFor="let cust of customers " value={{cust.PartyID}}>
+                                                            {{cust.AccountName}}</option>
+
+                                                    </select>
+                                                </c-col>
+                                                <c-col sm="12" md="12" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="BuldingName">
+                                                        Bulding Name
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="BuldingName"
+                                                        placeholder="Enter Bulding Name" type="text"
+                                                        [(ngModel)]="bulding.BuldingName" />
+                                                </c-col>
+                                            </c-row>
+                                        </div>
+                                        <div class="d-flex m-0 row w-100 justify-content-around">
+                                            <c-row class="container">
+                                                <c-col sm="12" md="12" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="RoomCode">
+                                                        Bulding #
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="RoomCode" placeholder="Enter Room Code"
+                                                        type="text" [(ngModel)]="bulding.RoomCode" />
+                                                </c-col>
+                                                <c-col sm="12" md="12" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="ClassId">
+                                                        Room Type
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <select aria-label="ClassId" cSelect class="form-control"
+                                                        (click)="GetRateTypes()" [(ngModel)]="bulding.ClassId">
+                                                        <option value="">Select Room Type</option>
+                                                        <option *ngFor="let roomtyp of roomtypes
+                                                        " value={{roomtyp.RoomTypeID}}>{{roomtyp.RoomType}}</option>
+
+                                                    </select>
+                                                </c-col>
+                                            </c-row>
+                                        </div>
+
+                                        <div class="d-flex m-0 row w-100 justify-content-around">
+                                            <c-row class="container">
+                                                <c-col sm="12" md="12" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="RoomCode">
+                                                        Check out Hrs
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="RoomCode" placeholder="Enter Room Code"
+                                                        type="number" [(ngModel)]="bulding.ChekoutHrs" />
+                                                </c-col>
+                                                <c-col sm="12" md="12" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="RateId">
+                                                        Rate Type
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <select aria-label="RateId" cSelect class="form-control"
+                                                        [(ngModel)]="bulding.RateId">
+                                                        <option value="">Select Rate Type</option>
+                                                        <option *ngFor="let ratyp of ratelist
+                                                        " value={{ratyp.RateId}}>{{ratyp.RateType}}</option>
+
+                                                    </select>
+                                                </c-col>
+                                            </c-row>
+                                        </div>
+
+                                        <div class="d-flex m-0 row w-100 justify-content-around">
+                                            <c-row class="container">
+                                                <c-col sm="12" md="12" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2"
+                                                        for="WeekEndPercent">
+                                                        Week End %
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="WeekEndPercent"
+                                                        placeholder="Enter Week End Percent" type="number"
+                                                        [(ngModel)]="bulding.WeekEndPercent" />
+                                                </c-col>
+                                                <c-col sm="12" md="12" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2"
+                                                        for="HolidayPercent">
+                                                        Holiday %
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="HolidayPercent"
+                                                        placeholder="Enter Holiday Percent" type="number"
+                                                        [(ngModel)]="bulding.HolidayPercent" />
+                                                </c-col>
+                                            </c-row>
+                                        </div>
+                                        <div class="d-flex m-0 row w-100 justify-content-around">
+                                            <c-row class="container">
+                                                <c-col sm="12" md="12" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2"
+                                                        for="ContinuesHolydaysRate">
+                                                        Continues Holydays Rate
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <select aria-label="ContinuesHolydaysRate" cSelect
+                                                        class="form-control"
+                                                        [(ngModel)]="bulding.ContinuesHolydaysRate">
+                                                        <option value=""></option>
+                                                        <option value="1">By Holyday</option>
+                                                        <option value="2">By Week end</option>
+                                                        <option value="3">By Flat</option>
+                                                        <option value="3">By Season</option>
+                                                    </select>
+                                                </c-col>
+                                                <c-col sm="12" md="12" lg="6" class="c-block justify-content-around">
+                                                    <c-form-check [switch]="true">
+                                                        <input cFormCheckInput type="checkbox"
+                                                            [(ngModel)]="bulding.IsDetachable"
+                                                            name="ServiceChargeIncluded" />
+                                                        <label cFormCheckLabel>IS Detachable</label>
+                                                    </c-form-check>
+                                                    <c-form-check [switch]="true">
+                                                        <input cFormCheckInput type="checkbox"
+                                                            [(ngModel)]="bulding.inActive"
+                                                            name="ServiceChargeIncluded" />
+                                                        <label cFormCheckLabel>Inactive</label>
+                                                    </c-form-check>
+                                                </c-col>
+                                            </c-row>
+                                        </div>
+                                    </c-card-body>
+                                </c-card>
+                            </c-col>
+                            <c-col xs="12" md="4" class="ps-0 pe-0">
+                                <c-card class="mb-3">
+                                    <c-card-body>
+                                        <!-- <div class="d-flex m-0 row w-100"> -->
+                                        <!-- <div class="container"> -->
+                                        <div [cFormFloating]="true" class="col-sm-12">
+                                            <input cFormControl id="mamber" placeholder="Search Bulding" type="text"
+                                                (keyup)="search($event)" />
+                                            <label cLabel for="mamber">Search Bulding</label>
+                                        </div>
+                                        <!-- <div cListGroup>
+                                                    <div *ngFor="let bld of buldings">
+                                                        <a (click) = "ShowBulding(bld.BuldingID)"  [(ngModel)]="passbuldingID" 
+                                                         cListGroupItem>{{ bld.BuldingName }}</a>
+                                                    </div>
+                                                </div> -->
+
+                                        <div class="rate-list-table" style="padding: 3px;">
+                                            <table cTable [responsive]="true" [bordered]="true">
+                                                <thead cTableColor="dark">
+                                                    <tr>
+                                                        <th scope="col" class="text-center small">#</th>
+                                                        <th scope="col" class="text-center small">Bulding Name
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let bld of buldings;let i= index;">
+                                                        <th scope="row" class="small text-center">{{i+1}}</th>
+                                                        <td class="text-left" (click)="ShowBulding(bld.BuldingID)"
+                                                            [(ngModel)]="passbuldingID">{{ bld.BuldingName}}
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- </div> -->
+                                            <!-- </div> -->
+                                        </div>
+                                    </c-card-body>
+                                </c-card>
+                            </c-col>
+                        </c-row>
+                    </c-tab-pane>
+
+                    <c-tab-pane class="p-3 ps-0 pe-0" role="tabpanel">
+                        <c-row class="ps-0 pe-0 m-0">
+                            <c-col xs="12" class="ps-0 pe-0">
+                                <c-card class="mb-3">
+                                    <c-card-body>
+                                        <div class="d-flex m-0 row w-100">
+                                            <c-row class="container">
+                                                <c-col sm="12" md="6" lg="3" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="floors">
+                                                        Floor(s)
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="floors" [(ngModel)]="bulding.Floor"
+                                                        placeholder="Enter Floor(s)" type="number" />
+                                                </c-col>
+
+                                                <c-col sm="12" md="6" lg="3" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2"
+                                                        for="area_in_sqft">
+                                                        Area in Sqft
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="area_in_sqft" [(ngModel)]="bulding.Capacity"
+                                                        placeholder="Enter Area in Sqft" type="number" />
+                                                </c-col>
+
+                                                <c-col sm="12" md="6" lg="6" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2 text-end"
+                                                        for="size_details">
+                                                        Size Details
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="size_details"
+                                                        [(ngModel)]="bulding.TotalAreainSqft"
+                                                        placeholder="Enter Size Details" type="text" />
+                                                </c-col>
+                                            </c-row>
+                                        </div>
+                                        <div class="d-flex m-0 row w-100">
+                                            <c-row class="container">
+                                                <c-col sm="12" md="6" lg="3" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="adult_bed">
+                                                        Adults Bed
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="adult_bed" placeholder="Enter Adults Bed"
+                                                        [(ngModel)]="bulding.MaxBed" type="number" />
+                                                </c-col>
+
+                                                <c-col sm="12" md="6" lg="3" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="extra_beds">
+                                                        Extra Bed Rs.
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="extra_beds"
+                                                        [(ngModel)]="bulding.PricePerBed"
+                                                        placeholder="Enter Extra Bed Rs." type="number" />
+                                                </c-col>
+
+                                                <c-col sm="12" md="6" lg="3" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2" for="childs_bed">
+                                                        Childs Bed
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="childs_bed" placeholder="Enter Childs Bed"
+                                                        [(ngModel)]="bulding.NoOFChilds" type="number" />
+                                                </c-col>
+
+                                                <c-col sm="12" md="6" lg="3" class="c-block">
+                                                    <label cLabel class="col-sm-4 form-label m-0 m-2"
+                                                        for="extra_child_beds">
+                                                        Extra Child Bed Rs.
+                                                        <i class="fa fa-star mand"></i>
+                                                    </label>
+                                                    <input cFormControl id="extra_child_beds"
+                                                        [(ngModel)]="bulding.ChildPricePerBed"
+                                                        placeholder="Enter Extra Child Bed Rs." type="number" />
+                                                </c-col>
+                                            </c-row>
+                                        </div>
+                                    </c-card-body>
+                                </c-card>
+                            </c-col>
+                        </c-row>
+                    </c-tab-pane>
+
+                    <c-tab-pane class="p-3 ps-0 pe-0" role="tabpanel">
+                        <c-card class="mb-4">
+                            <c-card-header>
+                                <h5 cCardTitle>Description</h5>
+                            </c-card-header>
+                            <c-card-body>
+                                <ckeditor [(ngModel)]="bulding.Description" data="<p>About the bulding</p>">
+                                </ckeditor>
+                            </c-card-body>
+                        </c-card>
+                        <br>
+                        <c-row class="cta">
+                            <c-col sm="12" md="3">
+                                <button cButton class="btn btn-light w-100 mb-1 p-1 text-black" (click)="newbulding()"
+                                    type="button">
+                                    <svg cIcon name="cil-paper-plane" size="sm" class="me-2"
+                                        title="Paper Plane Icon"></svg>
+                                    New</button>
+                            </c-col>
+                            <c-col sm="12" md="3">
+                                <button cButton class="btn btn-success w-100 mb-1 p-1 text-black" (click)="SaveEdit()"
+                                    type="button">
+                                    <svg cIcon name="cil-task" size="sm" class="me-2" title="cil-task"></svg>
+                                    Save</button>
+                            </c-col>
+                            <c-col sm="12" md="3">
+                                <button cButton class="btn btn-warning w-100 mb-1 p-1 text-black" type="button">
+                                    <svg cIcon name="cil-pencil" size="sm" class="me-2" title="cil-pencil"></svg>
+                                    Edit</button>
+                            </c-col>
+                            <c-col sm="12" md="3">
+                                <button cButton class="btn btn-danger w-100 mb-1 p-1 text-black"
+                                    (click)="toggleConfirmation()" type="button">
+                                    <svg cIcon name="cil-trash" size="sm" class="me-2" title="cil-trash"></svg>
+                                    Delete</button>
+                            </c-col>
+                        </c-row>
+                    </c-tab-pane>
+                </c-tab-content>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col sm="4" class="mt-3 toaster" *ngIf="toasterShow">
+        <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+            <c-toast [fade]="true" [visible]="true" color="{{toasterColor}}">
+                <c-toast-body class="text-white">{{toasterText}}</c-toast-body>
+            </c-toast>
+        </c-toaster>
+    </c-col>
+</c-row>
+
+<c-row>
+    <c-col xs="12">
+        <c-card class="mb-3">
+            <c-card-header>
+                <h6 cCardTitle>About Bulding</h6>
+            </c-card-header>
+            <c-card-body class="p-4">
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" class="c-block">
+                            <label cLabel class="col-sm-6 col-md-3 col-lg-2 form-label m-0 m-2" for="Specification">
+                                Specification
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input cFormControl name="Specification" type="text" placeholder="Enter Specification"
+                                [(ngModel)]="buldingdetail.Size" />
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container p-0">
+                        <c-col xs="12" md="6">
+                            <c-card class="mb-3">
+                                <c-card-header>
+                                    <h6 cCardTitle>Image</h6>
+                                </c-card-header>
+                                <c-card-body class="p-4">
+                                    <input cFormControl id="formFile" type="file" #file
+                                        (change)="uploadFile(file.files)" />
+                                    <div class="preview">
+                                        <img src="{{ ImageFile }}">
+                                    </div>
+                                </c-card-body>
+                            </c-card>
+                        </c-col>
+                        <c-col xs="12" md="6">
+                            <c-card class="mb-3">
+                                <c-card-header>
+                                    <h6 cCardTitle>Description</h6>
+                                </c-card-header>
+                                <c-card-body class="p-4">
+                                    <ckeditor [(ngModel)]="buldingdetail.Description" data="<p>About the bulding</p>">
+                                    </ckeditor>
+                                </c-card-body>
+                            </c-card>
+                        </c-col>
+                    </c-row>
+                </div>
+                <br>
+                <!-- <c-row class="cta">
+                    <c-col xs="12" md="6">
+                        test
+                    <div cListGroup  *ngFor="let bld of BuldDetails">
+                     
+                            <button cButton class="btn btn-warning w-10 mb-1 p-1 text-black" type="button">{{ bld.sortno }}</button>
+                      
+                    </div>
+                    </c-col>
+                </c-row> -->
+
+
+                <c-row class="cta">
+
+                    <c-col xs="12" md="6">
+                        <c-pagination aria-label="Page navigation example">
+                            <!-- <c-page-item aria-label="Previous">
+                                <a cPageLink routerLink="./"><span aria-hidden="true">&laquo;</span></a>
+                            </c-page-item> -->
+                            <c-page-item *ngFor="let bld of BuldDetails;let i=index;">
+                                <!-- {{bld.sortno}} -->
+                                <a cPageLink>
+                                    <img (click)="showImageDetails(i)" src="{{ serverpath + bld.Imagepath}}"
+                                        style="height: 40px;width: 40px;"></a>
+                            </c-page-item>
+                            <!-- <c-page-item>
+                                <a cPageLink routerLink="./">2</a>
+                            </c-page-item>
+                            <c-page-item>
+                                <a cPageLink routerLink="./">3</a>
+                            </c-page-item> -->
+                            <!-- <c-page-item aria-label="Next">
+                                <a cPageLink routerLink="./"><span aria-hidden="true">&raquo;</span></a>
+                            </c-page-item> -->
+                        </c-pagination>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-warning w-100 mb-1 p-1 text-black" (click)="NewImage()"
+                            type="button">
+                            <svg cIcon name="cil-paper-plane" size="sm" class="me-2" title="Paper Plane Icon"></svg>
+                            New</button>
+                    </c-col>
+                    <c-col sm="12" md="3">
+                        <button cButton class="btn btn-success w-100 mb-1 p-1 text-black" (click)=" SaveEditImaages()"
+                            type="button">
+                            <svg cIcon name="cil-task" size="sm" class="me-2" title="cil-task"></svg>
+                            Save</button>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+    <c-col sm="4" class="mt-3 toaster" *ngIf="toasterShow">
+        <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+            <c-toast [fade]="true" [visible]="true" color="{{toasterColor}}">
+                <c-toast-body class="text-white">{{toasterText}}</c-toast-body>
+            </c-toast>
+        </c-toaster>
+    </c-col>
+</c-row>
+<c-modal class="customModal" id="confirmationModal" [visible]="toggleConfirmationModal">
+    <c-modal-header>
+        <button (click)="toggleConfirmation()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>Are you sure want to delete this coupon {{ bulding.BuldingName }}?</c-modal-body>
+    <c-modal-footer>
+        <button (click)="toggleConfirmation()" cButton color="secondary">
+            Close
+        </button>
+        <button cButton color="danger" (click)="deleteData()">Delete</button>
+    </c-modal-footer>
+</c-modal>

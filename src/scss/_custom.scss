@@ -1,0 +1,148 @@
+// Here you can add other styles
+
+.form-control,
+label {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+}
+
+.form-control:focus {
+    border-color: #4f5d73 !important;
+    box-shadow: none !important;
+}
+
+c-alert {
+    position: absolute !important;
+    top: 1em;
+    right: 1em;
+}
+
+.bg-blue {
+    opacity: 1;
+    background-color: #1A4D79 !important;
+}
+
+.header-sticky {
+    background-color: #303c54;
+}
+
+.custom-breadcrumb {
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+.breadcrumb-item.active {
+    color: #fff !important;
+}
+
+.brand {
+    a {
+        width: 100%;
+
+        .logo-sidebar {
+            height: 48px;
+            width: 100%;
+            object-fit: fill;
+        }
+    }
+}
+
+.ngb-tp-input-container {
+    width: 2em !important;
+
+    .ngb-tp-input {
+        padding: 7px !important;
+        font-size: 10px !important;
+    }
+}
+
+.ngb-tp-spacer {
+    width: 0.5em !important;
+}
+
+.form-datepicker {
+    right: 0;
+    position: absolute;
+    padding: 0 10px !important;
+    bottom: 0;
+    top: 0;
+    border: 0 !important;
+}
+
+input[type=number] {
+    text-align: end;
+}
+
+.tabpanel {
+    background: #3c4b6452 !important;
+    color: #000 !important;
+    margin-right: 0.5em;
+
+    &.active {
+        background: #3c4b64 !important;
+        color: #fff !important;
+        opacity: 0.8;
+    }
+}
+
+label {
+    position: relative;
+}
+
+i.fa.fa-star.mand {
+    font-size: 6px;
+    color: #F4511E;
+    margin-left: 1px;
+    position: absolute;
+}
+
+.cus-box {
+    display: flex;
+}
+
+.container {
+    margin: 0.25rem 0;
+
+    .c-block {
+        display: flex;
+        align-items: center;
+        padding: 0 0.5em;
+        margin-bottom: 0.5em;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    /* For mobile phones: */
+    .c-block {
+        display: block !important;
+    }
+
+    .cus-box {
+        display: block;
+    }
+
+    .pk-price {
+        padding: 0 !important;
+    }
+
+    .nav-pills {
+        .nav-item {
+            width: 100% !important;
+        }
+    }
+
+    .check-in,
+    .check-out {
+        padding: 0 !important;
+    }
+}
+
+.toaster {
+    position: absolute;
+    right: 0;
+}
