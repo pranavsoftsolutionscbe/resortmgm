@@ -1,6 +1,12 @@
 td:hover {
-    background-color: #85C1E9  ;
-    color: darkslateblue;
-    font-weight: 600;
-    cursor: pointer;
-  }
+  background-color: #85c1e9;
+  color: darkslateblue;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* Report Port Dependencies */
+.form-control.p-dropdown .p-inputtext {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}

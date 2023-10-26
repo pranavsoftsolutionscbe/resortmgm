@@ -1,0 +1,6 @@
+export class ListType {
+    static { this.ALL = "A"; }
+    static { this.GROUP = "G"; }
+    static { this.LEDGER = "L"; }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29tbW9uLmNvcmUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9wcm9qZWN0cy9yZXBvcnQtdG9vbC9jb3JlL2NvbW1vbi5jb3JlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE1BQU0sT0FBTyxRQUFRO2FBQ0QsUUFBRyxHQUFHLEdBQUcsQ0FBQzthQUNWLFVBQUssR0FBRyxHQUFHLENBQUM7YUFDWixXQUFNLEdBQUcsR0FBRyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGNsYXNzIExpc3RUeXBlIHtcclxuICAgIHN0YXRpYyByZWFkb25seSBBTEwgPSBcIkFcIjtcclxuICAgIHN0YXRpYyByZWFkb25seSBHUk9VUCA9IFwiR1wiO1xyXG4gICAgc3RhdGljIHJlYWRvbmx5IExFREdFUiA9IFwiTFwiO1xyXG59Il19

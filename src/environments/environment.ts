@@ -11,7 +11,9 @@
 // };
 export const environment = {
   production: false,
-  server: "https://localhost:44383/api/",
+  // server: "https://localhost:44383/api/",
+  server: "http://sunvis.net:8123/api/",
+  // server: "https://demoapi.pranavsoft.com/api/",
   // resources: "https://demoapi.pranavsoft.com/Resources/",
   resources: "https://localhost:44383/Resources/",
   apiUrl: "https://www.primefaces.org/data/customers",

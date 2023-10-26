@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ToastrModule } from "ngx-toastr";
 
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
@@ -35,7 +36,7 @@ import {
   SharedModule,
   SidebarModule,
   TabsModule,
-  UtilitiesModule
+  UtilitiesModule,
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
@@ -79,7 +80,14 @@ const APP_CONTAINERS = [
     CardModule,
     NgScrollbarModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    // Report Port Dependencies - Start
+    ToastrModule.forRoot({
+      positionClass: "toast-center-center",
+      closeButton: false,
+      timeOut: 3000,
+    }),
+    // Report Port Dependencies - End
   ],
   providers: [
     DatePipe,

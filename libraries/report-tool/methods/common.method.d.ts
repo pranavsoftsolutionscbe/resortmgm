@@ -1,0 +1,10 @@
+export declare function joinPaths(...paths: any[]): string;
+export declare function filter<T>(array: T[], filterKey: string, value?: any): T[];
+export declare function filterByMenu(array: any[], keys: string[], value: any): any[];
+export declare function parseValue(v: string): [string, number];
+export declare function sort(array: any[], key: string, isCompare?: boolean): any[];
+export declare function multiSort(array: any[], keys: string[], isCompare?: boolean): any[];
+export declare function groupBy(array: any[], keys: [string, string, any]): any[];
+export declare function between(value: number, min: number, max: number): boolean;
+export declare function percentage(value: number, total: number): number;
+export declare function isJson(str: string): boolean;

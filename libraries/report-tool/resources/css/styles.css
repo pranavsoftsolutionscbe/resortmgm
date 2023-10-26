@@ -1,0 +1,181 @@
+@import "node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "node_modules/font-awesome/css/font-awesome.min.css";
+@import "node_modules/ng-pick-datetime-ex/assets/style/picker.min.css";
+@import "node_modules/primeicons/primeicons.css";
+@import "node_modules/primeng/resources/primeng.min.css";
+@import "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css";
+@import "node_modules/ngx-toastr/toastr.css";
+
+:root {
+  --lib-details-height: calc(100vh - 120px);
+  --lib-list-height: calc(100vh - 205px);
+}
+.lib-footer {
+  background-color: #ddd;
+}
+body > .cdk-overlay-container {
+  z-index: 1050;
+}
+textarea:focus, 
+textarea.form-control:focus, 
+input.form-control:focus, 
+input[type=text]:focus, 
+input[type=password]:focus, 
+input[type=email]:focus, 
+input[type=number]:focus, 
+[type=text].form-control:focus, 
+[type=password].form-control:focus, 
+[type=email].form-control:focus, 
+[type=tel].form-control:focus, 
+[contenteditable].form-control:focus {
+  box-shadow: inset 0 -1px 0 #ddd;
+}
+.form-control.p-dropdown .p-inputtext {
+  padding: 0;
+}
+.nav-link {
+  cursor: pointer;
+}
+.accordion-button {
+  --bs-accordion-btn-padding-x: 1rem;
+  --bs-accordion-btn-padding-y: 0.5rem;
+}
+.report-details {
+  height: var(--lib-details-height);
+  overflow: hidden auto;
+}
+.report-list {
+  height: var(--lib-list-height);
+  overflow: hidden auto;
+  border: 1px solid #ddd;
+}
+.table-head-bg th {
+  background-color: #ffffcc !important;
+  font-family: var(--default-font) !important;
+  font-size: 16px !important;
+  text-align: center;
+}
+tr td.vehicle_row {
+  background-color: #beffac;
+}
+tr td.date_row {
+  background-color: #ffceac !important;
+}
+.table-row:nth-child(even) {
+  background-color: #eee !important;
+}
+.table-row:nth-child(odd) {
+  background-color: #fff !important;
+}
+.row-group {
+  background-color: #bfffac;
+}
+.row-childgroup {
+  background-color: #ffccee;
+}
+.company_name {
+  text-transform: uppercase !important;
+  background-color: #fff !important;
+  border: none;
+}
+.address {
+  background-color: #fff !important;
+  border: none;
+}
+.company_name,
+.address {
+  border: none;
+  text-align: center;
+}
+.report-title {
+  text-align: center;
+  background-color: #ffddcc !important;
+  border: none;
+}
+.report-date {
+  background-color: #e6f2ff !important;
+  border: none;
+  text-align: right;
+}
+.request-data {
+  background-color: #e6f2ff !important;
+}
+.table td,
+.table th {
+  padding: 0.35rem 0.25rem;
+}
+.position-sticky {
+  position: sticky;
+  top: -1px;
+  z-index: 1;
+}
+.cdk-overlay-pane.owl-dt-popup {
+  z-index: 1050;
+}
+@media print {
+  .table-head-bg th {
+    background-color: #ffffcc !important;
+    font-family: var(--default-font) !important;
+    font-size: 16px !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .table-row:nth-child(even) {
+    background-color: #eee !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .table-row:nth-child(odd) {
+    background-color: #fff !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .row-group {
+    background-color: #bfffac;
+    -webkit-print-color-adjust: exact;
+  }
+  .row-childgroup {
+    background-color: #ffccee;
+    -webkit-print-color-adjust: exact;
+  }
+  tr td.vehicle_row {
+    background-color: #beffac !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  tr td.date_row {
+    background-color: #ffceac !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .company_name {
+    text-transform: uppercase;
+  }
+  .company_name,
+  .address {
+    font-weight: bold;
+    border: none !important;
+    text-align: center;
+  }
+  .report-title {
+    text-align: center;
+    background-color: #ffddcc !important;
+    border: none !important;
+    /* white-space: pre-line; */
+    -webkit-print-color-adjust: exact;
+  }
+  .report-date {
+    background-color: #e6f2ff !important;
+    border: none !important;
+    text-align: right;
+    -webkit-print-color-adjust: exact;
+  }
+  .request-data {
+    background-color: #e6f2ff !important;
+    border: none !important;
+    -webkit-print-color-adjust: exact;
+  }
+}
+@media all and (min-width: 767px) and (max-width: 870px) {
+  .table-responsive-md-lg {
+    display: block !important;
+    width: 100%;
+    overflow-x: auto;
+  }
+}

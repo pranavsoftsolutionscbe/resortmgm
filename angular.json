@@ -37,9 +37,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/scss/styles.scss"
+              "src/scss/styles.scss",
+              "libraries/report-tool/resources/css/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
             "allowedCommonJsDependencies": [
               "chart.js"
             ]
@@ -66,7 +69,7 @@
                     "inlineCritical": false
                 },
                 "fonts": true
-            },
+            }
             },
             "development": {
               "buildOptimizer": false,

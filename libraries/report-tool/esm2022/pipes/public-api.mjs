@@ -1,0 +1,5 @@
+/*
+ * Public API Surface of report-tool
+ */
+export * from "./ngx-filter.pipe";
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3Byb2plY3RzL3JlcG9ydC10b29sL3BpcGVzL3B1YmxpYy1hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0dBRUc7QUFDSCxjQUFjLG1CQUFtQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiByZXBvcnQtdG9vbFxuICovXG5leHBvcnQgKiBmcm9tIFwiLi9uZ3gtZmlsdGVyLnBpcGVcIjtcbiJdfQ==

@@ -13,19 +13,21 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Home'
+      title: 'Home',
     },
     children: [
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
+          import('./views/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
         canActivate: [authGuard],
       },
       {
@@ -67,7 +69,9 @@ const routes: Routes = [
       {
         path: 'notifications',
         loadChildren: () =>
-          import('./views/notifications/notifications.module').then((m) => m.NotificationsModule),
+          import('./views/notifications/notifications.module').then(
+            (m) => m.NotificationsModule
+          ),
         canActivate: [authGuard],
       },
       {
@@ -97,19 +101,25 @@ const routes: Routes = [
       {
         path: 'room-types',
         loadChildren: () =>
-          import('./views/room-type/room-type.module').then((m) => m.RoomTypeModule),
+          import('./views/room-type/room-type.module').then(
+            (m) => m.RoomTypeModule
+          ),
         canActivate: [authGuard],
       },
       {
         path: 'linked-accounts',
         loadChildren: () =>
-          import('./views/linked-accounts/linked-accounts.module').then((m) => m.LinkedAccountsModule),
+          import('./views/linked-accounts/linked-accounts.module').then(
+            (m) => m.LinkedAccountsModule
+          ),
         canActivate: [authGuard],
       },
       {
         path: 'rate-types',
         loadChildren: () =>
-          import('./views/rate-type/rate-type.module').then((m) => m.RateTypeModule),
+          import('./views/rate-type/rate-type.module').then(
+            (m) => m.RateTypeModule
+          ),
         canActivate: [authGuard],
       },
 
@@ -122,7 +132,9 @@ const routes: Routes = [
       {
         path: 'Receipt',
         loadChildren: () =>
-          import('./views/receiptvoucher/receiptvoucher.module').then((m) => m.ReceiptvoucherModule),
+          import('./views/receiptvoucher/receiptvoucher.module').then(
+            (m) => m.ReceiptvoucherModule
+          ),
         canActivate: [authGuard],
       },
       {
@@ -134,63 +146,90 @@ const routes: Routes = [
 
       {
         path: 'booknow',
-        loadChildren: () => import('./views/booknow/booknow.module').then(m => m.BooknowModule),
+        loadChildren: () =>
+          import('./views/booknow/booknow.module').then((m) => m.BooknowModule),
         canActivate: [authGuard],
       },
       {
         path: 'booknow/:id',
-        loadChildren: () => import('./views/booknow/detail/detail.module').then(m => m.DetailModule),
+        loadChildren: () =>
+          import('./views/booknow/detail/detail.module').then(
+            (m) => m.DetailModule
+          ),
         canActivate: [authGuard],
       },
-      
+
       {
         path: 'Rooms',
-        loadChildren: () => import('./views/rooms/rooms.module').then(m => m.RoomsModule),
+        loadChildren: () =>
+          import('./views/rooms/rooms.module').then((m) => m.RoomsModule),
         canActivate: [authGuard],
       },
-      { path: 'Bankbook/:id', loadChildren: () => import('./views/master/master.module').then(m => m.MasterModule) },
-    ]
+      {
+        path: 'Bankbook/:id',
+        loadChildren: () =>
+          import('./views/master/master.module').then((m) => m.MasterModule),
+      },
+      {
+        path: 'report-port',
+        loadChildren: () =>
+          import('./views/report-port/report-port.module').then(
+            (m) => m.ReportPortModule
+          ),
+      },
+    ],
+  },
+  {
+    path: 'report-preview',
+    loadChildren: () =>
+      import('./views/report-preview/report-preview.module').then(
+        (m) => m.ReportPreviewModule
+      ),
   },
   {
     path: '404',
     component: Page404Component,
     data: {
-      title: 'Page 404'
-    }
+      title: 'Page 404',
+    },
   },
   {
     path: '500',
     component: Page500Component,
     data: {
-      title: 'Page 500'
-    }
+      title: 'Page 500',
+    },
   },
   {
     path: 'login',
     component: LoginComponent,
     canActivate: [authGuard],
     data: {
-      title: 'Login Page'
-    }
+      title: 'Login Page',
+    },
   },
   {
     path: 'register',
     component: RegisterComponent,
     data: {
-      title: 'Register Page'
-    }
+      title: 'Register Page',
+    },
   },
   {
     path: 'surada/booknow',
-    loadChildren: () => import('./views/booknow/booknow.module').then(m => m.BooknowModule),
+    loadChildren: () =>
+      import('./views/booknow/booknow.module').then((m) => m.BooknowModule),
     canActivate: [authGuard],
   },
   {
     path: 'surada/booknow/:id',
-    loadChildren: () => import('./views/booknow/detail/detail.module').then(m => m.DetailModule),
+    loadChildren: () =>
+      import('./views/booknow/detail/detail.module').then(
+        (m) => m.DetailModule
+      ),
     canActivate: [authGuard],
   },
-  { path: '**', redirectTo: 'dashboard' }
+  { path: '**', redirectTo: 'dashboard' },
 ];
 
 @NgModule({
@@ -198,11 +237,10 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'top',
       anchorScrolling: 'enabled',
-      initialNavigation: 'enabledBlocking'
+      initialNavigation: 'enabledBlocking',
       // relativeLinkResolution: 'legacy'
-    })
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

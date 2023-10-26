@@ -56,6 +56,12 @@ class endpoint {
   readonly GetRoomstobook = "commondata/GetRoomstobook/";
   readonly res_contactus = "res_contactus";
   readonly GetBookedVoucherdetail = "commondata/GetBookedVoucherdetail";
+  readonly ReportHeads = "ReportHeads";
+  readonly ReportHeadsCUD = "ReportHeads/CUD";
+  readonly ReportDetails = "ReportDetails";
+  readonly GetReportDynamic = "ReportHeads/GetReportDynamic";
+  readonly GetReportHeadDetails = "ReportHeads/GetReportHeadDetails";
+  readonly GetRportDetailList = "ReportDetails/GetRportDetailList";
 }
 
 export const Endpoint = new endpoint();

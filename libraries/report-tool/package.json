@@ -1,0 +1,78 @@
+{
+  "name": "report-tool",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^16.1.0",
+    "@angular/core": "^16.1.0",
+    "bootstrap": "^5.3.1",
+    "crypto-js": "^4.1.1",
+    "exceljs": "^4.3.0",
+    "file-saver": "^2.0.5",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.31",
+    "ng-pick-datetime-ex": "^15.0.0",
+    "ngx-toastr": "^17.0.2",
+    "primeicons": "^6.0.1",
+    "primeng": "^16.1.0",
+    "xlsx": "^0.18.5"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "module": "fesm2022/report-tool.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/report-tool.mjs",
+      "esm": "./esm2022/report-tool.mjs",
+      "default": "./fesm2022/report-tool.mjs"
+    },
+    "./core": {
+      "types": "./core/index.d.ts",
+      "esm2022": "./esm2022/core/report-tool-core.mjs",
+      "esm": "./esm2022/core/report-tool-core.mjs",
+      "default": "./fesm2022/report-tool-core.mjs"
+    },
+    "./methods": {
+      "types": "./methods/index.d.ts",
+      "esm2022": "./esm2022/methods/report-tool-methods.mjs",
+      "esm": "./esm2022/methods/report-tool-methods.mjs",
+      "default": "./fesm2022/report-tool-methods.mjs"
+    },
+    "./models": {
+      "types": "./models/index.d.ts",
+      "esm2022": "./esm2022/models/report-tool-models.mjs",
+      "esm": "./esm2022/models/report-tool-models.mjs",
+      "default": "./fesm2022/report-tool-models.mjs"
+    },
+    "./pipes": {
+      "types": "./pipes/index.d.ts",
+      "esm2022": "./esm2022/pipes/report-tool-pipes.mjs",
+      "esm": "./esm2022/pipes/report-tool-pipes.mjs",
+      "default": "./fesm2022/report-tool-pipes.mjs"
+    },
+    "./modules/report-preview": {
+      "types": "./modules/report-preview/index.d.ts",
+      "esm2022": "./esm2022/modules/report-preview/report-tool-modules-report-preview.mjs",
+      "esm": "./esm2022/modules/report-preview/report-tool-modules-report-preview.mjs",
+      "default": "./fesm2022/report-tool-modules-report-preview.mjs"
+    },
+    "./modules/report-table": {
+      "types": "./modules/report-table/index.d.ts",
+      "esm2022": "./esm2022/modules/report-table/report-tool-modules-report-table.mjs",
+      "esm": "./esm2022/modules/report-table/report-tool-modules-report-table.mjs",
+      "default": "./fesm2022/report-tool-modules-report-table.mjs"
+    },
+    "./modules/report-tool": {
+      "types": "./modules/report-tool/index.d.ts",
+      "esm2022": "./esm2022/modules/report-tool/report-tool-modules-report-tool.mjs",
+      "esm": "./esm2022/modules/report-tool/report-tool-modules-report-tool.mjs",
+      "default": "./fesm2022/report-tool-modules-report-tool.mjs"
+    }
+  }
+}
