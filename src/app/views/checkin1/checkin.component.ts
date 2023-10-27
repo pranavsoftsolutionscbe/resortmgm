@@ -17,11 +17,13 @@ import { h_roombooking } from 'src/app/shared/models/h_roombooking.model';
   styleUrls: ['./checkin.component.scss'],
 })
 export class CheckinComponent implements OnInit {
+  formatedInDate: string;
+  formatedOutDate: string;
   constructor(private dtenv: DataserviceService, public formatter: NgbDateParserFormatter, private customDatepickerService: CustomDatepickerService, private route: Router, private activatedRoute: ActivatedRoute,
     private domSanitizer: DomSanitizer, public datepipe: DatePipe) { }
 
   checkInDetails = new HRoomallotment();
-  bookedvoucher = new h_roombooking();
+  bookedvoucher = new HRoomallotment();
   timeCheckIn = { hour: 0, minute: 0 };
   timeCheckOut = { hour: 0, minute: 0 };
   customers: any = [];
@@ -44,7 +46,7 @@ export class CheckinComponent implements OnInit {
   countryName: string = "";
   member = new h_customermaster();
   date: NgbDateStruct;
-  DELIMITER = "/";
+  DELIMITER = "-";
   isEdit: boolean = false;
   Rooms: any = [];
   custID: number = 0;
@@ -52,8 +54,9 @@ export class CheckinComponent implements OnInit {
   dateformate = "EE dd-MM-yyyy";
   dtOfferFrom: NgbDateStruct;
   dtOfferTo: NgbDateStruct;
-  Fromdate: NgbDateStruct;
-  Todate: NgbDateStruct;
+  Fromdate: NgbDateStruct | null;
+  Todate: NgbDateStruct | null;
+  dob: NgbDateStruct;
   roomRate: number = 0;
   bookingtext: string = "COMPLETE BOOKING";
   Taxpercent: number = 18;
@@ -90,6 +93,12 @@ export class CheckinComponent implements OnInit {
   };
 
   minDate = { year: 0, month: 0, day: 0 };
+  minOutDate = { year: 0, month: 0, day: 0 };
+  CheckinDate: any = "";
+  CheckoutDate: any = "";
+  dateLists: any = [];
+  room_details: any = {};
+
   ngOnInit() {
     this.getData();
   }
@@ -109,7 +118,6 @@ export class CheckinComponent implements OnInit {
     this.dtenv.get(Endpoint.getcountries)
       .subscribe((res: any) => {
         this.countrylist = res;
-        console.log(this.countrylist);
       });
 
     this.dtenv.get(Endpoint.GetRoomTypes + "1")
@@ -124,7 +132,7 @@ export class CheckinComponent implements OnInit {
   }
 
   assignBookingDates(): void {
-
+    this.custID = 0;
     // this.searchData.checkInTime = this.booked.CheckinTime; //= JSON.parse(data);
     // this.searchData.checkOutTime = this.booked.CheckoutTime;
 
@@ -138,71 +146,79 @@ export class CheckinComponent implements OnInit {
 
     this.dtenv.put(Endpoint.GetBookedVoucherdetail, voucher)
       .subscribe((res: any) => {
-        this.bookedvoucher = res[0];
+        this.bookedvoucher = res.pop();
 
         this.isEdit = false;
-        this.checkInDetails.CustomerFirstName = this.bookedvoucher.CustomerFirstName;
-        this.checkInDetails.CustomerSecondName = this.bookedvoucher.CustomerSecondName;
-        this.checkInDetails.AddressLine1 = this.bookedvoucher.AddressLine1;
-        this.checkInDetails.AddressLine2 = this.bookedvoucher.AddressLine2;
-        this.checkInDetails.PhoneNo = this.bookedvoucher.PhoneNo;
-        this.checkInDetails.PassportNo = this.bookedvoucher.PassportNo;
-        this.checkInDetails.CountryId = Number(this.bookedvoucher.Country);
-        this.checkInDetails.emailId = this.bookedvoucher.emailId;
-        this.checkInDetails.CheckinDate = this.bookedvoucher.CheckinDate;
-        this.checkInDetails.CheckinTime = this.bookedvoucher.CheckinTime;
-        this.checkInDetails.CheckoutDate = this.bookedvoucher.CheckoutDate;
-        this.checkInDetails.CustomerID = this.bookedvoucher.CustomerID;
-        this.checkInDetails.CustomerName = this.bookedvoucher.CustomerName;
-       
+        this.checkInDetails = this.bookedvoucher;
+        this.checkInDetails.CheckinDate = new Date(this.bookedvoucher.CheckinDate);
+        this.checkInDetails.CheckoutDate = new Date(this.bookedvoucher.CheckoutDate);
+        this.Rooms.RoomId = this.bookedvoucher.RoomCode;
+        if (this.checkInDetails.CountryId) {
+          this.member.Country = this.bookedvoucher.CountryId.toString();
+          this.getstates();
+        }
+
+        let y = new Date(this.bookedvoucher.CheckinDate).getFullYear();
+        let mm = new Date(this.bookedvoucher.CheckinDate).getMonth() + 1;
+        let dat = this.datepipe.transform(this.bookedvoucher.CheckinDate, 'dd');
+        let d = Number(dat);
+        this.Fromdate = { year: y, month: mm, day: d };
+
+        y = new Date(this.bookedvoucher.CheckoutDate).getFullYear();
+        mm = new Date(this.bookedvoucher.CheckoutDate).getMonth() + 1;
+        dat = this.datepipe.transform(this.bookedvoucher.CheckoutDate, 'dd');
+        d = Number(dat);
+        this.Todate = { year: y, month: mm, day: d };
+
+        y = new Date(this.bookedvoucher.CustomerDOB).getFullYear();
+        mm = new Date(this.bookedvoucher.CustomerDOB).getMonth() + 1;
+        dat = this.datepipe.transform(this.bookedvoucher.CustomerDOB, 'dd');
+        d = Number(dat);
+        this.dob = { year: y, month: mm, day: d };
+
+        this.searchData.checkInDate = this.Fromdate;
+        this.searchData.checkOutDate = this.Todate;
+
+        this.formatedInDate = this.checkInDetails.CheckinDate ? this.checkInDetails.CheckinDate.getFullYear() + this.DELIMITER + this.checkInDetails.CheckinDate.getMonth() + this.DELIMITER + this.checkInDetails.CheckinDate.getDay() : '';
+
+        this.formatedOutDate = this.checkInDetails.CheckoutDate ? this.checkInDetails.CheckoutDate.getFullYear() + this.DELIMITER + this.checkInDetails.CheckoutDate.getMonth() + this.DELIMITER + this.checkInDetails.CheckoutDate.getDay() : '';
+
+
+        this.timeCheckIn = {
+          hour: new Date(this.bookedvoucher.CheckinTime).getHours(),
+          minute: new Date(this.bookedvoucher.CheckinTime).getMinutes()
+        };
+        this.timeCheckOut = {
+          hour: new Date(this.bookedvoucher.CheckoutTime).getHours(),
+          minute: new Date(this.bookedvoucher.CheckoutTime).getMinutes()
+        };
+
+        this.loadTableByDates();
+
       });
-    let y = new Date(this.booked.CheckinDate).getFullYear();
-    let mm = new Date(this.booked.CheckinDate).getMonth() + 1;
-    let dat = this.datepipe.transform(this.booked.CheckinDate, 'dd');
-    let d = Number(dat);
-
-
-    this.Fromdate = { year: y, month: mm, day: d };
-    y = new Date(this.booked.CheckoutDate).getFullYear();
-    mm = new Date(this.booked.CheckoutDate).getMonth() + 1;
-    dat = this.datepipe.transform(this.booked.CheckoutDate, 'dd');
-    d = Number(dat);
-    this.Todate = { year: y, month: mm, day: d };
-    this.searchData.checkInDate = this.Fromdate;
-    this.searchData.checkOutDate = this.Todate;
-
-    const formatedCheckInDate = this.searchData.checkInDate ? this.searchData.checkInDate.year + this.DELIMITER + this.searchData.checkInDate.month + this.DELIMITER + this.searchData.checkInDate.day : '';
-    this.checkInDetails.CheckinDate = new Date(formatedCheckInDate);
-
-    const formatedCheckOutDate = this.searchData.checkOutDate ? this.searchData.checkOutDate.year + this.DELIMITER + this.searchData.checkOutDate.month + this.DELIMITER + this.searchData.checkOutDate.day : '';
-    this.checkInDetails.CheckoutDate = new Date(formatedCheckOutDate);
-
-    this.timeCheckIn = this.searchData.checkInTime;
-    this.timeCheckOut = this.searchData.checkOutTime;
   }
   GetRateTypes(): void {
-    console.log(this.ratetypeID);
     this.dtenv.get(Endpoint.GetRateTypeList + "1")
       .subscribe((res: any) => {
-        console.log(res);
         this.ratelist = res.filter((rt: { RoomTypeID: number; }) => rt.RoomTypeID == this.ratetypeID);
-        console.log(this.ratelist);
       })
   }
   ShowData(memID: number): void {
-    this.dtenv.get(Endpoint.h_customermaster + "/" + this.custID)
+    this.selectedVoucher = "";
+    this.dtenv.get(Endpoint.h_customermaster + "/" + memID)
       .subscribe((res: h_customermaster) => {
         this.member = res;
         let y = new Date(this.member.CustomerDOB).getFullYear();
         let mm = new Date(this.member.CustomerDOB).getMonth() + 1;
         let dat = this.datepipe.transform(this.member.CustomerDOB, 'dd');
         let d = Number(dat);
-        this.date = { year: y, month: mm, day: d };
+        this.dob = { year: y, month: mm, day: d };
         this.getstates();
         this.getDistrict();
         this.getCity();
         this.getPincode();
         this.isEdit = false;
+        this.checkInDetails = new HRoomallotment();
         this.checkInDetails.CustomerFirstName = this.member.CustomerFirstName;
         this.checkInDetails.CustomerSecondName = this.member.CustomerSecondName;
         this.checkInDetails.AddressLine1 = this.member.AddressLine1;
@@ -211,7 +227,12 @@ export class CheckinComponent implements OnInit {
         this.checkInDetails.PassportNo = this.member.PassportNo;
         this.checkInDetails.CountryId = Number(this.member.Country);
         this.checkInDetails.emailId = this.member.emailId;
-
+        this.checkInDetails.CityId = this.member.City;
+        this.checkInDetails.EmergencyNo = this.member.EmergencyContact;
+        this.Fromdate = null;
+        this.Todate = null;
+        this.timeCheckIn = { hour: 0, minute: 0 };
+        this.timeCheckOut = { hour: 0, minute: 0 };
       });
 
   }
@@ -224,10 +245,10 @@ export class CheckinComponent implements OnInit {
   getstates(): void {
     let country = this.countrylist.filter((cnt: { CountryId: string; }) => cnt.CountryId == this.member.Country)[0];
     this.countryName = country.CountryName;
+    this.checkInDetails.CountryId = Number(this.member.Country);
     this.dtenv.get(Endpoint.GetStateDetails + this.member.Country + '/' + country.CountryName)
       .subscribe((res: any) => {
         this.stateList = res;
-
       });
   }
   getDistrict(): void {
@@ -235,7 +256,6 @@ export class CheckinComponent implements OnInit {
       '/' + this.member.State)
       .subscribe((res: any) => {
         this.districtList = res;
-        console.log(this.districtList);
       });
   }
   getCity(): void {
@@ -243,27 +263,32 @@ export class CheckinComponent implements OnInit {
       '/' + this.member.State + '/' + this.member.District)
       .subscribe((res: any) => {
         this.citylist = res;
-
       });
   }
   getPincode(): void {
     this.dtenv.get(Endpoint.GetPincode + this.member.Country + '/' + this.countryName +
       '/' + this.member.State + '/' + this.member.District + '/' + this.member.City)
       .subscribe((res: any) => {
-
-        this.member.Pincode = res[0].Pincode
-        console.log(res);
+        this.member.Pincode = res[0].Pincode;
       });
   }
 
   LoadRooms(): void {
     this.dtenv.get(Endpoint.GetRoomstobook + this.rateID + '/' + this.ratetypeID)
       .subscribe((res: any) => {
-
-        this.Rooms = res;
-
+        this.Rooms = res.pop();
+        if (this.Rooms && this.formatedInDate && this.formatedOutDate) {
+          this.getRoomDetails();
+        }
       });
   }
+  private getRoomDetails() {
+    this.dtenv.get(Endpoint.gettoBookRoom + this.Rooms.RoomId + "/1/" + this.formatedInDate + "/" + this.formatedOutDate)
+      .subscribe((res: any) => {
+        this.room_details = res.pop();
+      });
+  }
+
   getDiffDays(sDate: any, eDate: any) {
     var startDate = new Date(sDate);
     var endDate = new Date(eDate);
@@ -287,18 +312,54 @@ export class CheckinComponent implements OnInit {
     }
   }
 
-  onDateSelectFrom(date: NgbDateStruct) {
+  onDateSelect(date: NgbDateStruct, type: string) {
     const formatedDate = date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : '';
+    if (type === "checkin") {
+      this.checkInDetails.CheckinDate = new Date(formatedDate);
+      this.formatedInDate = formatedDate;
+      this.minOutDate = { year: date.year, month: date.month, day: date.day };
+    } else if (type === "checkout") {
+      this.checkInDetails.CheckoutDate = new Date(formatedDate);
+      this.formatedOutDate = formatedDate;
+    } else {
+      this.checkInDetails.CustomerDOB = new Date(formatedDate);
+    }
 
-    this.checkInDetails.CheckinDate = new Date(formatedDate);
-    this.LoadDate();
+    this.loadTableByDates();
   }
-  onDateSelectTo(date: NgbDateStruct) {
-    const formatedDate = date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : '';
 
-    this.checkInDetails.CheckoutDate = new Date(formatedDate);
-    this.LoadDate();
+  private loadTableByDates() {
+    if (this.checkInDetails.CheckinDate && this.checkInDetails.CheckoutDate) {
+
+      this.getRoomDetails();
+
+      const dates = this.getDates(this.checkInDetails.CheckinDate, this.checkInDetails.CheckoutDate);
+      if (dates.length) {
+        dates.forEach((date, index) => {
+          this.dateLists[index] = {
+            date: this.datepipe.transform(date, 'dd-MM-yyyy')
+          };
+        });
+      }
+    }
   }
+
+  getDates(currentDate: Date, endDate: Date) {
+    const dates = [];
+
+    while (currentDate <= endDate) {
+      dates.push(currentDate);
+
+      currentDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate() + 1, // Will increase month if over range
+      );
+    }
+
+    return dates;
+  }
+
   LoadDate() {
     let y = new Date(this.checkInDetails.CheckinDate).getFullYear();
     let mm = new Date(this.checkInDetails.CheckinDate).getMonth() + 1;
@@ -317,7 +378,7 @@ export class CheckinComponent implements OnInit {
     // debugger;
     this.days = this.getDiffDays(this.checkInDetails.CheckinDate, this.checkInDetails.CheckoutDate);
     this.days = this.days == 0 ? this.days + 1 : this.days;
-    this.roomRate = this.days * this.room.Rate;
+    this.roomRate = this.days * this.room?.Rate;
     this.roomRate = this.checkInDetails.NoOfGuest > this.room.MaxBed ?
       (this.roomRate + (this.checkInDetails.NoOfGuest - this.room.MaxBed) * this.room.PricePerBed) : this.roomRate;
     this.roomRate = this.checkInDetails.NoOFChilds > this.room.NoOFChilds ?
@@ -363,5 +424,4 @@ export class CheckinComponent implements OnInit {
       this.bookingtext = "COMPLETE BOOKING";
     }
   }
-
 }

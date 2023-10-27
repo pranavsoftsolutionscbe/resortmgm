@@ -106,7 +106,7 @@
                                     {{ room.title }} </div>
                                 <div class="cus-box p-0">
                                     <div class="rmdetails-block col-md-8 col-sm-12">
-                                        <div class="packagesDesc read-more-content" [innerHTML]="room.description ">
+                                        <div class="packagesDesc read-more-content" [innerHTML]="room.description">
                                         </div>
                                     </div>
                                     <div class="pk-price col-md-4 col-sm-12">
@@ -119,14 +119,6 @@
                                                         <div class="BEOPrice">{{ room.Capacity }} <span class="beunit">
                                                                 Area in Sq Ft.
                                                             </span></div>
-                                                        <div style="float:left;padding-right:5px;" class="BEOCurrency">
-                                                            INR
-                                                        </div>
-                                                        <div class="BEOPrice">{{ room.amount }} <span class="beunit">
-                                                                per Day
-                                                            </span></div>
-                                                        <span class="inclusivecss">Tax
-                                                            Exclusive</span><br>
                                                     </div>
                                                     <span class="hsbtn" id="view-{{room.BuldingID}}"
                                                         (click)="expandDiv(room.BuldingID)">
@@ -174,11 +166,13 @@
                                                                 class="BEOCurrency">
                                                                 INR
                                                             </div>
-                                                            <div class="BEOPrice">{{ room.amount }} <span
-                                                                    class="beunit">
+                                                            <div class="BEOPrice">{{ broom?.availablity?.Rate | number:
+                                                                '1.2-2' }}
+                                                                <span class="beunit">
                                                                     per
                                                                     Day
-                                                                </span></div><span class="inclusivecss">Tax
+                                                                </span>
+                                                            </div><span class="inclusivecss">Tax
                                                                 Exclusive</span><br>
                                                         </div>
                                                         <span class="hsbtn"
@@ -210,17 +204,15 @@
         <c-modal-body class="pt-2">
             <c-col xs="12">
                 <div class="col-sm-12 availablity mb-2">
-                    <label cLabel class="col-sm-3 form-label m-0 m-2" for="room">
-                        <b>Room - {{ availablity.RoomName }}</b>
+                    <label cLabel class="col-md-4 col-sm-6 col-lg-4" for="room">
+                        <b>Room - </b> {{ availablity.RoomName }}
                     </label>
-                    <label cLabel class="col-sm-3 form-label m-0 m-2" for="capacity">
-                        <b>Capacity - {{ availablity.Capacity }}</b>
+                    <label cLabel class="col-md-3 col-sm-6 col-lg-3" for="capacity">
+                        <b>Capacity - </b> {{ availablity.Capacity }}
                     </label>
-                    <label cLabel class="col-sm-3 form-label m-0 m-2" for="adult">
-                        <b>Adults - {{ availablity.MaxBed }}</b>
-                    </label>
-                    <label cLabel class="col-sm-3 form-label m-0 m-2" for="child">
-                        <b>Childs - {{ availablity.NoOFChilds }}</b>
+                    <label cLabel class="col-md-5 col-sm-6 col-lg-5" for="adult">
+                        <b>Description - </b>
+                        <p class="m-0" [innerHTML]="availablity.Description"></p>
                     </label>
                 </div>
                 <c-card class="mb-4">

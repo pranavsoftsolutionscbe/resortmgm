@@ -114,7 +114,7 @@ export class DetailComponent {
     const formatedInDate = this.searchData.checkInDate ? this.searchData.checkInDate.year + this.DELIMITER + this.searchData.checkInDate.month + this.DELIMITER + this.searchData.checkInDate.day : '';
     const formatedOutDate = this.searchData.checkOutDate ? this.searchData.checkOutDate.year + this.DELIMITER + this.searchData.checkOutDate.month + this.DELIMITER + this.searchData.checkOutDate.day : '';
 
-    this.dtenv.get(Endpoint.gettoBookRoom + this.RoomID + "/1/" + formatedInDate + "/" + formatedOutDate)
+    this.dtenv.get(Endpoint.gettoBookRoom + this.RoomID + "/1512/" + formatedInDate + "/" + formatedOutDate)
       .subscribe((res: any) => {
         this.room = res[0];
         this.Taxpercent = this.room.taxpercent;
@@ -271,7 +271,7 @@ export class DetailComponent {
 
 
     if (this.isValid) {
-      this.disableSubmit = true;
+      // this.disableSubmit = true;
       this.booking.BookedBy = 'web portal';
 
       this.dtenv.get(Endpoint.getvoucher + '1512/Booking/' + dat)
@@ -296,6 +296,7 @@ export class DetailComponent {
           this.booking.TotalAmount = this.TotalAmount;
           this.booking.TaxRateID = this.room.TaxRateID;
           this.booking.ClientID = 1;
+          this.booking.CustomerID = 1512;
           this.booking.ReservationMode = "Booking";
           this.dtenv.post(Endpoint.RoomBooking, this.booking)
             .subscribe((res: any) => {
@@ -309,14 +310,14 @@ export class DetailComponent {
                   };
                   this.dtenv.POST(Endpoint.messenger, senddata)
                     .subscribe((res: any) => {
-                      this.booking = new h_roombooking();
+                      // this.booking = new h_roombooking();
                       this.toasterShow = true;
                       this.toasterColor = "success";
                       this.toasterText = "Your Room Booked Sucessfuly, Our Wishes to Enjoy the Trip.";
                       setTimeout(() => {
                         this.toasterShow = false;
                         this.disableSubmit = false;
-                        this.back();
+                        // this.back();
                       }, 5000);
                     });
 

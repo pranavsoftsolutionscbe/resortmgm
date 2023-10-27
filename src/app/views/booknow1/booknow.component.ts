@@ -57,6 +57,7 @@ export class BooknowComponent implements OnInit {
   };
 
   minDate = { year: 0, month: 0, day: 0 };
+  isView = false;
 
   resourcePath = environment.resources;
 
@@ -110,6 +111,31 @@ export class BooknowComponent implements OnInit {
   }
 
   expandDiv(index: number) {
+    this.isView = !this.isView;
+
+    this.rooms.forEach((element: any) => {
+      if (element.BuldingID === index) {
+        const elem = document.getElementById("room-" + index);
+        const elembtn = document.getElementById("view-" + index) as HTMLInputElement;
+        if (elem !== null && elem.classList.contains("d-none")) {
+          elem?.classList.remove("d-none");
+          elembtn.innerText = "- Hide";
+        } else if (elem !== null && !elem.classList.contains("d-none")) {
+          elem?.classList.add("d-none");
+          elembtn.innerText = "+ View";
+        }
+      } else {
+        const elem = document.getElementById("room-" + element.BuldingID);
+        const elembtn = document.getElementById("view-" + element.BuldingID) as HTMLInputElement;
+        elem?.classList.add("d-none");
+        elembtn.innerText = "+ View";
+      }
+    });
+
+    if (!this.isView) {
+      return;
+    }
+
     this.tobookrooms = [];
     this.dtenv.get(Endpoint.gettoBookBuldingrooms + index)
       .subscribe((res: any[]) => {
@@ -133,25 +159,6 @@ export class BooknowComponent implements OnInit {
           });
         }
       });
-
-    this.rooms.forEach((element: any) => {
-      if (element.BuldingID === index) {
-        const elem = document.getElementById("room-" + index);
-        const elembtn = document.getElementById("view-" + index) as HTMLInputElement;
-        if (elem !== null && elem.classList.contains("d-none")) {
-          elem?.classList.remove("d-none");
-          elembtn.innerText = "- Hide";
-        } else if (elem !== null && !elem.classList.contains("d-none")) {
-          elem?.classList.add("d-none");
-          elembtn.innerText = "+ View";
-        }
-      } else {
-        const elem = document.getElementById("room-" + element.BuldingID);
-        const elembtn = document.getElementById("view-" + element.BuldingID) as HTMLInputElement;
-        elem?.classList.add("d-none");
-        elembtn.innerText = "+ View";
-      }
-    });
   }
 
   booknow(roomId: number, RateId: number) {

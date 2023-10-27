@@ -1,3 +1,5 @@
+import { h_actualroomrate } from "./h_actualroomrate.model";
+
 export class HRoomallotment {
     VoucherNo: string;
     VoucherCode: number;
@@ -57,4 +59,5 @@ export class HRoomallotment {
     TaxPercent: number = 0;
     TaxAmount: number = 0;
     TotalAmount: number = 0;
+    roomrates:h_actualroomrate[]=[];
 }

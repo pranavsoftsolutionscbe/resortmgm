@@ -31,10 +31,10 @@ export class BooknowComponent implements OnInit {
   checkout_date: NgbDateStruct;
   DELIMITER = "-";
   rooms: any;
-  filtered_rooms: any;
-  roomtypes: any[];
+  filtered_rooms: any = [];
+  roomtypes: any[] = [];
   serverpath: string;
-  tobookrooms: any[];
+  tobookrooms: any[] = [];
 
   timeCheckIn = { hour: 0, minute: 0 };
   timeCheckOut = { hour: 0, minute: 0 };
@@ -58,18 +58,24 @@ export class BooknowComponent implements OnInit {
 
   minDate = { year: 0, month: 0, day: 0 };
   isView = false;
+  isLoading = false;
+  isFailed = false;
 
   resourcePath = environment.resources;
 
   ngOnInit() {
     this.searchData.room_type = 1;
-
     this.serverpath = environment.resources + "bulding/1/";
+    this.isLoading = true;
     this.dtenv.get(Endpoint.GetBookingBulding + "1/1")
       .subscribe((res) => {
         this.rooms = res;
         this.filterRoomByType(this.searchData.room_type);
-      })
+      },
+        error => {
+          this.isLoading = false;
+          this.isFailed = true;
+        },)
 
     this.getdata();
 
@@ -90,6 +96,7 @@ export class BooknowComponent implements OnInit {
     } else {
 
     }
+    this.isLoading = false;
   }
 
 
@@ -151,7 +158,7 @@ export class BooknowComponent implements OnInit {
               const formatedInDate = this.searchData.checkInDate ? this.searchData.checkInDate.year + this.DELIMITER + this.searchData.checkInDate.month + this.DELIMITER + this.searchData.checkInDate.day : '';
               const formatedOutDate = this.searchData.checkOutDate ? this.searchData.checkOutDate.year + this.DELIMITER + this.searchData.checkOutDate.month + this.DELIMITER + this.searchData.checkOutDate.day : '';
 
-              this.dtenv.get(Endpoint.gettoBookRoom + room.RoomId + "/1512/" + formatedInDate + "/" + formatedOutDate)
+              this.dtenv.get(Endpoint.gettoBookRoom + room.RoomId + "/1/" + formatedInDate + "/" + formatedOutDate)
                 .subscribe((response: any[]) => {
                   room.availablity = response.pop();
                 });
