@@ -48,7 +48,7 @@ export class CheckinComponent implements OnInit {
   date: NgbDateStruct;
   DELIMITER = "-";
   isEdit: boolean = false;
-  Rooms: any = {};
+  Rooms: any = [];
   custID: number = 0;
   user_id = Number(localStorage.getItem("user_id"));
   days: number = 0;
@@ -137,7 +137,7 @@ export class CheckinComponent implements OnInit {
       }
       );
     this.dtenv.get(Endpoint.GetCustomers + "1")
-      .subscribe((res: any) => {
+      .subscribe((res: any[]) => {
         this.customers = res;
       });
   }
@@ -299,11 +299,9 @@ export class CheckinComponent implements OnInit {
   LoadRooms(): void {
     this.dtenv.get(Endpoint.GetRoomstobook + this.rateID + '/' + this.ratetypeID)
       .subscribe((res: any) => {
-        if (res.length) {
-          this.Rooms = res.pop();
-          if (this.Rooms && this.formatedInDate && this.formatedOutDate) {
-            this.getRoomDetails();
-          }
+        this.Rooms = res.pop();
+        if (this.Rooms && this.formatedInDate && this.formatedOutDate) {
+          this.getRoomDetails();
         }
       });
   }
@@ -336,23 +334,6 @@ export class CheckinComponent implements OnInit {
         this.room_details.extraDinnerRate = (extraAduts + extraChilds) * this.room_details.DinnerRate;
         this.room_details.extraSpecialDinnerRate = (extraAduts + extraChilds) * this.room_details.SpecialDinnerRate;
       });
-  }
-
-  calculateGuestPrice($event: any) {
-    console.log($event.target.value);
-    if ($event.target.value) {
-      const noOfGuest = Number($event.target.value);
-      const extraAduts = (this.room_details.MaxBed < noOfGuest) ? (noOfGuest - this.room_details.MaxBed) : 0;
-      this.room_details.extraPricePerBed = extraAduts * this.room_details.PricePerBed;
-    }
-  }
-
-  calculateChildPrice($event: any) {
-    if ($event.target.value) {
-      const noOfChild = Number($event.target.value);
-      const extraAduts = (this.room_details.NoOFChilds < noOfChild) ? (noOfChild - this.room_details.NoOFChilds) : 0;
-      this.room_details.extraChildPricePerBed = extraAduts * this.room_details.ChildPricePerBed;
-    }
   }
 
   getDiffDays(sDate: any, eDate: any) {

@@ -14,7 +14,6 @@
                                 <option value="">Select</option>
                                 <option *ngFor="let voclst of BookingVouchers " value={{voclst.VoucherNo}}>
                                     {{voclst.VoucherNo}}</option>
-
                             </select>
                         </c-col>
 
@@ -37,7 +36,7 @@
                                 <i class="fa fa-star mand"></i>
                             </label>
                             <input autocomplete="off" placeholder="Voucher No" cFormControl name="voucher_no"
-                                type="text" />
+                                type="text" [(ngModel)]="checkInDetails.VoucherNo" />
                         </c-col>
                     </c-row>
                 </div>
@@ -93,7 +92,7 @@
                             <select aria-label="bill_to" cSelect class="form-control"
                                 [(ngModel)]="checkInDetails.BillTo">
                                 <option value="">Select Customer</option>
-                                <option *ngFor="let cust of customers " value={{cust.CustomerId}}>
+                                <option *ngFor="let cust of customers" value={{cust.CustomerId}}>
                                     {{cust.CustomerFirstName}}</option>
                             </select>
                         </c-col>
@@ -105,9 +104,8 @@
                             </label>
                             <div class="position-relative me-1">
                                 <input autocomplete="off" cFormControl class="form-control" name="checkin" ngbDatepicker
-                                    #datepickerCheckin="ngbDatepicker" placeholder="yyyy-mm-dd"
-                                    [(ngModel)]="checkInDetails.CheckinDate" [minDate]="minDate"
-                                    (dateSelect)="onDateSelect($event, 'checkin')" />
+                                    #datepickerCheckin="ngbDatepicker" placeholder="yyyy-mm-dd" [(ngModel)]="Fromdate"
+                                    [minDate]="minDate" (dateSelect)="onDateSelect($event, 'checkin')" />
                                 <button class="btn btn-outline-secondary form-datepicker"
                                     (click)="datepickerCheckin.toggle()" type="button"><svg cIcon
                                         name="cilCalendar"></svg>
@@ -123,9 +121,8 @@
                             </label>
                             <div class="position-relative me-1">
                                 <input autocomplete="off" cFormControl class="form-control" name="checkin" ngbDatepicker
-                                    #datepickerCheckOut="ngbDatepicker" placeholder="yyyy-mm-dd"
-                                    [(ngModel)]="checkInDetails.CheckoutDate" [minDate]="minOutDate"
-                                    (dateSelect)="onDateSelect($event, 'checkout')" />
+                                    #datepickerCheckOut="ngbDatepicker" placeholder="yyyy-mm-dd" [(ngModel)]="Todate"
+                                    [minDate]="minOutDate" (dateSelect)="onDateSelect($event, 'checkout')" />
                                 <button class="btn btn-outline-secondary form-datepicker"
                                     (click)="datepickerCheckOut.toggle()" type="button"><svg cIcon
                                         name="cilCalendar"></svg>
@@ -162,8 +159,8 @@
                             </label>
                             <div class="position-relative">
                                 <input autocomplete="off" cFormControl class="form-control" placeholder="yyyy-mm-dd"
-                                    name="offer_from" ngbDatepicker #datepicker="ngbDatepicker"
-                                    [(ngModel)]="checkInDetails.CustomerDOB" />
+                                    name="offer_from" ngbDatepicker #datepicker="ngbDatepicker" [(ngModel)]="dob"
+                                    (dateSelect)="onDateSelect($event, 'dob')" />
                                 <button class="btn btn-outline-secondary form-datepicker" (click)="datepicker.toggle()"
                                     type="button"><svg cIcon name="cilCalendar"></svg>
                                 </button>
@@ -204,6 +201,51 @@
                 <div class="d-flex m-0 row w-100">
                     <c-row class="container">
                         <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="country">
+                                Country
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="country" cSelect class="form-control" (change)="getstates()"
+                                [(ngModel)]="member.Country">
+                                <option value="">Select Country</option>
+                                <option *ngFor="let country of countrylist" [value]="country.CountryId">
+                                    {{country.CountryName}}
+                                </option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="state">
+                                State
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="state" cSelect class="form-control" (change)="getDistrict()"
+                                [(ngModel)]="member.State">
+                                <option value="">Select State</option>
+                                <option *ngFor="let state of stateList" [value]="state.State">
+                                    {{state.State}}
+                                </option>
+                            </select>
+                        </c-col>
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="district">
+                                District
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="district" cSelect class="form-control" (change)="getCity()"
+                                [(ngModel)]="member.District">
+                                <option value="">Select District</option>
+                                <option *ngFor="let district of districtList" [value]="district.District">
+                                    {{district.District}}
+                                </option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="city">
                                 City
                                 <i class="fa fa-star mand"></i>
@@ -217,20 +259,6 @@
                         </c-col>
 
                         <c-col sm="12" md="6" lg="4" class="c-block">
-                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="country">
-                                Country
-                                <i class="fa fa-star mand"></i>
-                            </label>
-                            <select aria-label="country" cSelect class="form-control" (change)="getstates()"
-                                [(ngModel)]="checkInDetails.CountryId">
-                                <option value="">Select Country</option>
-                                <option *ngFor="let country of countrylist" [value]="country.CountryId">
-                                    {{country.CountryName}}
-                                </option>
-                            </select>
-                        </c-col>
-
-                        <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="phone">
                                 Phone/Mobile No
                                 <i class="fa fa-star mand"></i>
@@ -238,10 +266,7 @@
                             <input autocomplete="off" placeholder="Phone No" cFormControl name="phone" type="text"
                                 [(ngModel)]="checkInDetails.PhoneNo" />
                         </c-col>
-                    </c-row>
-                </div>
-                <div class="d-flex m-0 row w-100">
-                    <c-row class="container">
+
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="phone2">
                                 Alternative Phone
@@ -250,11 +275,14 @@
                             <input autocomplete="off" placeholder="Alternative Phone No" cFormControl name="phone2"
                                 type="text" [(ngModel)]="checkInDetails.Phone2" />
                         </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
 
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="EmergencyNo">
                                 Emergency No
-                                <!-- <i class="fa fa-star mand"></i> -->
                             </label>
                             <input autocomplete="off" placeholder="Emergency No" cFormControl name="EmergencyNo"
                                 type="text" [(ngModel)]="checkInDetails.EmergencyNo" />
@@ -268,12 +296,9 @@
                             <input autocomplete="off" placeholder="Enter Email ID" cFormControl name="email" type="text"
                                 [(ngModel)]="checkInDetails.emailId" />
                         </c-col>
-                    </c-row>
-                </div>
-                <div class="d-flex m-0 row w-100">
-                    <c-row class="container">
-                        <c-col sm="12" md="6" lg="6" class="c-block">
-                            <label cLabel class="col-sm-2 form-label m-0 m-2" for="remarks">
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="remarks">
                                 Remarks
                                 <!-- <i class="fa fa-star mand"></i> -->
                             </label>
@@ -287,8 +312,7 @@
                     <c-row class="container">
                         <c-col sm="12" md="6" lg="3" class="c-block">
                             <c-form-check>
-                                <input autocomplete="off" cFormCheckInput id="stackOne" type="checkbox"
-                                    [(ngModel)]="checkInDetails.RoomRent" />
+                                <input autocomplete="off" cFormCheckInput id="stackOne" type="checkbox" />
                                 <label cFormCheckLabel for="stackOne">Pay Room Rent by Coupon</label>
                             </c-form-check>
                         </c-col>
@@ -348,11 +372,11 @@
 
                         <c-col sm="6" md="4" lg="2" class="c-block">
                             <label cLabel class="col-sm-6 form-label m-0 m-2" for="extra_beds">
-                                No of Extra Beds
+                                No of Adults Beds
                                 <i class="fa fa-star mand"></i>
                             </label>
                             <input autocomplete="off" placeholder="0" cFormControl name="extra_beds" type="number"
-                                [(ngModel)]="checkInDetails.NoOFExtraBed" />
+                                (input)="calculateGuestPrice($event)" [(ngModel)]="checkInDetails.NoOfGuest" />
                         </c-col>
 
                         <c-col sm="6" md="4" lg="3" class="c-block">
@@ -370,7 +394,7 @@
                                 <i class="fa fa-star mand"></i>
                             </label>
                             <input autocomplete="off" placeholder="0" cFormControl name="childs_bed" type="number"
-                                [(ngModel)]="checkInDetails.NoOFChilds" />
+                                (input)="calculateChildPrice($event)" [(ngModel)]="checkInDetails.NoOFChilds" />
                         </c-col>
                     </c-row>
                 </div>
@@ -380,15 +404,15 @@
                         <thead cTableColor="dark">
                             <tr>
                                 <th scope="col" class="text-center small">Date</th>
-                                <th scope="col" class="text-center small">Rate</th>
-                                <th scope="col" class="text-center small">Rate per Bed</th>
-                                <th scope="col" class="text-center small">Rate per Child</th>
+                                <th scope="col" class="text-center small">Rent</th>
+                                <th scope="col" class="text-center small">Rate per Extra Bed</th>
+                                <th scope="col" class="text-center small">Rate per Extra Child</th>
                                 <th scope="col" class="text-center small">BreakFast</th>
                                 <th scope="col" class="text-center small">Lunch</th>
                                 <th scope="col" class="text-center small">Dinner</th>
                                 <th scope="col" class="text-center small">Spl Dinner</th>
                                 <th scope="col" class="text-center small">Service Charge</th>
-                                <th scope="col" class="text-center small">Tax</th>
+                                <th scope="col" class="text-center small">Tax %</th>
                                 <th scope="col" class="text-center small">Net Rate</th>
                                 <th scope="col" class="text-center small">Total Amount</th>
                             </tr>
@@ -397,15 +421,21 @@
                             <tr class="date_details" *ngFor="let data of dateLists">
                                 <td class="text-center">{{ data.date }}</td>
                                 <td class="text-center">{{ room_details.Rate | number: '1.2-2' }}</td>
-                                <td class="text-center">{{ checkInDetails.PricePreBed | number: '1.2-2' }}</td>
-                                <td class="text-center">{{ checkInDetails.ChildPricePerBed | number: '1.2-2' }}</td>
+                                <td class="text-center">
+                                    {{ room_details.extraPricePerBed | number: '1.2-2' }} </td>
+                                <td class="text-center">
+                                    {{ room_details.extraChildPricePerBed | number: '1.2-2' }}</td>
                                 <td class="text-center">{{ checkInDetails.IsBreakFastIncluded ?
-                                    room_details.BreakFastRate : '-' }}</td>
-                                <td class="text-center">{{ checkInDetails.IsLunchInclude ? room_details.LunchRate :
+                                    (room_details.extraBreakFastRate | number: '1.2-2') : '-' }}</td>
+                                <td class="text-center">{{ checkInDetails.IsLunchInclude ? (room_details.extraLunchRate
+                                    |
+                                    number: '1.2-2') :
                                     '-'}}</td>
-                                <td class="text-center">{{ checkInDetails.IsDinnerInclude ? room_details.DinnerRate :
+                                <td class="text-center">{{ checkInDetails.IsDinnerInclude ?
+                                    (room_details.extraDinnerRate
+                                    | number: '1.2-2'):
                                     '-'}}</td>
-                                <td class="text-center">{{ room_details.SpecialDinnerRate }}</td>
+                                <td class="text-center">{{ room_details.extraSpecialDinnerRate | number: '1.2-2' }}</td>
                                 <td class="text-center"></td>
                                 <td class="text-center">{{ room_details.taxpercent }}</td>
                                 <td class="text-center"></td>

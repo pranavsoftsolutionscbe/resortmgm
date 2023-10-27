@@ -11,15 +11,22 @@
 }
 
 .table-details {
-    height: 200px;
-    border: 1px solid #000;
-    overflow: auto;
+    width: 100%;
 
     table {
         thead {
             th {
-                border: 1px solid;
-                border-color: #000;
+                border: 1px solid #000;
+            }
+        }
+
+        tbody {
+            .date_details {
+                td {
+                    font-size: 12px;
+                    width: 15%;
+                    border: 1px solid #000;
+                }
             }
         }
     }
