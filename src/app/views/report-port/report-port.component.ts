@@ -14,12 +14,11 @@ import {
 
 import { Observable } from "rxjs";
 import { changeMenuItem, encrypt, joinPaths } from "report-tool/methods";
-
-import { Endpoint } from "src/app/shared/API/Endpoint.model";
 import { DataserviceService } from "src/app/shared/dataservice/dataservice.service";
+import { Endpoint } from "src/app/shared/API/Endpoint.model";
 
 @Component({
-  selector: "app-report-port",
+  selector: "my-report-port",
   templateUrl: "./report-port.component.html",
   styleUrls: ["./report-port.component.css"],
 })
@@ -73,7 +72,6 @@ export class ReportPortComponent implements OnInit {
     const base64Data = encrypt(JSON.stringify(urlRequest));
     localStorage.setItem(`${time}`, base64Data);
     const link = location.origin + "/#/report-preview?key=" + time;
-    console.log("link", link);
     window.open(link);
   }
 

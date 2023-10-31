@@ -3,8 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 
 import { fillColor } from "report-tool/core";
 import { decrypt } from "report-tool/methods";
-import { IReportDynamic, IUrlRequestParams, OrientationType } from "report-tool/models";
-
+import { IReportDynamic, OrientationType } from "report-tool/models";
 import { Endpoint } from "src/app/shared/API/Endpoint.model";
 import { DataserviceService } from "src/app/shared/dataservice/dataservice.service";
 
@@ -42,10 +41,11 @@ export class ReportPreviewComponent implements OnInit {
     const errorAlert = () => {
       alert("Invalid Report");
     };
-    this.route.queryParams.subscribe((params: any) => {
-      if (params.key) {
+    this.route.queryParams.subscribe((params) => {
+      const sessionId = params["key"]
+      if (sessionId) {
         const data =
-          localStorage.getItem(params.key) || sessionStorage.getItem(params.key);
+          localStorage.getItem(sessionId) || sessionStorage.getItem(sessionId);
         if (data) {
           const dataObj: any = JSON.parse(decrypt(data));
           Object.keys(dataObj).forEach((key) => {
@@ -53,8 +53,8 @@ export class ReportPreviewComponent implements OnInit {
               this[key] = dataObj[key];
             }
           });
-          sessionStorage.setItem(params.key, data);
-          localStorage.removeItem(params.key);
+          sessionStorage.setItem(sessionId, data);
+          localStorage.removeItem(sessionId);
           this.getReport();
         } else {
           errorAlert();
@@ -71,11 +71,11 @@ export class ReportPreviewComponent implements OnInit {
       SqlQuery: this.sqlRequest,
     };
     this.apiSvc.post(Endpoint.GetReportDynamic, request).subscribe(
-      (response) => {
+      (response: any) => {
         this.reportData = response;
         this.emptyMessage = "No data found";
       },
-      (err) => {
+      (err: any) => {
         console.log("err", err);
         // alert("Invalid Query");
       }
