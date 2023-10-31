@@ -22,7 +22,8 @@ import {
   ListGroupModule,
   SharedModule,
   TableModule,
-  CarouselModule
+  CarouselModule,
+  SpinnerModule
 } from '@coreui/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -56,7 +57,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     IconModule,
     ReactiveFormsModule,
     FormsModule,
-    CarouselModule
+    CarouselModule,
+    SpinnerModule
   ]
 })
 export class BooknowModule { }

@@ -4,6 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Endpoint } from 'src/app/shared/API/Endpoint.model';
 import { HttpClient } from '@angular/common/http';
+import { HRoommaster } from 'src/app/shared/models/h-roommaster.model';
 
 @Component({
   selector: 'app-invoice',
@@ -13,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class InvoiceComponent implements OnInit, OnChanges {
 
   @Input() booking = new h_roombooking();
-  @Input() room: any = {};
+  @Input() room: any;
   @Input() amount: number = 0;
   @Input() days: number = 0;
   @Input() TaxAmount: number = 0;

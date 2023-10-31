@@ -66,11 +66,18 @@
     </c-col>
 </c-row>
 
+
 <c-row>
     <c-col xs="12">
-        <ng-container *ngFor="let room of filtered_rooms; let i = index;">
-
-            <c-card class="mb-3">
+        <div class="loading-spinner" *ngIf="isLoading && !filtered_rooms.length">
+            <c-spinner variant="grow" size="sm"></c-spinner>
+            Loading...
+        </div>
+        <div class="error-container" *ngIf="isFailed && !filtered_rooms.length">
+            Something went wrong, Please try agian later.
+        </div>
+        <ng-container *ngIf="!isLoading && filtered_rooms.length">
+            <c-card class="mb-3" *ngFor="let room of filtered_rooms; let i = index;">
                 <c-card-body class="p-4 ps-0 pe-0">
                     <div class="m-0 row w-100 justify-content-around">
                         <c-row class="mb-4 room-card m-0">
@@ -132,61 +139,75 @@
                         </c-row>
 
                         <c-row class="roomTypeBox d-none" id="room-{{room.BuldingID}}" style="position:relative">
-                            <div class="mb-4 room-card m-0 row" *ngFor="let broom of tobookrooms">
-                                <div class="img-box col-md-4 col-sm-4 col-xs-12 position-relative">
-                                    <img class="packages_img mb-0"
-                                        src="{{resourcePath}}rooms/1/{{broom.images[0]?.Imagepath}}"
-                                        *ngIf="broom.images?.length">
-                                    <img class="packages_img mb-0" src="{{defaultImage}}" *ngIf="!broom.images?.length">
-                                    <div class="more-images" *ngIf="broom.images?.length"
-                                        (click)="setRoomSlides(broom.images); availablity = broom.availablity">
-                                        <p><i class="fa fa-eye" title="view more images" aria-hidden="true"></i></p>
-                                    </div>
+                            <ng-container>
+                                <div class="loading-spinner" *ngIf="isLoading && !tobookrooms.length">
+                                    <c-spinner variant="grow" size="sm"></c-spinner>
+                                    Loading...
                                 </div>
-                                <div class="col-md-8 col-sm-8 col-xs-12 mb-3">
-                                    <div class="packagesHeading col-md-8 col-sm-9 col-xs-12">
-                                        {{broom.RoomName}}</div>
-                                    <div class="cus-box p-0">
-                                        <div class="col-md-8 col-sm-7 col-xs-12 packagedetail-block">
-                                            <div class="packagesDesc" [innerHTML]="broom.Description">
-
-                                                <div class="adult-icon">2&nbsp;<i class="fa fa-male fa-2x"></i></div>
-                                            </div>
+                                <div class="error-container" *ngIf="isFailed && !tobookrooms.length">
+                                    Something went wrong, Please try agian later.
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="!isLoading && tobookrooms.length">
+                                <div class="mb-4 room-card m-0 row" *ngFor="let broom of tobookrooms">
+                                    <div class="img-box col-md-4 col-sm-4 col-xs-12 position-relative">
+                                        <img class="packages_img mb-0"
+                                            src="{{resourcePath}}rooms/1/{{broom.images[0]?.Imagepath}}"
+                                            *ngIf="broom.images?.length">
+                                        <img class="packages_img mb-0" src="{{defaultImage}}"
+                                            *ngIf="!broom.images?.length">
+                                        <div class="more-images" *ngIf="broom.images?.length"
+                                            (click)="setRoomSlides(broom.images); availablity = broom.availablity">
+                                            <p><i class="fa fa-eye" title="view more images" aria-hidden="true"></i></p>
                                         </div>
-                                        <div class="col-md-4 col-sm-5 col-xs-8 pk-price">
-                                            <div class="packagesPriceCol">
-                                                <div class="from">Area </div> {{broom.TotalAreainSqft}}
-                                                <div class="from"> {{broom.rooms}} Rooms </div>
-                                                <div class="from"> {{broom.MaxBed}} Adults </div>
-                                                <div class="from"> {{broom.NoOFChilds}} Childs </div>
-                                                <div class="packages_box">
-                                                    <div class="onlyRoomsValue" id="minRoomId">
-                                                        <div class="onlyPkgPricetext w-75">
-                                                            <div style="float:left;padding-right:5px;"
-                                                                class="BEOCurrency">
-                                                                INR
+                                    </div>
+                                    <div class="col-md-8 col-sm-8 col-xs-12 mb-3">
+                                        <div class="packagesHeading col-md-8 col-sm-9 col-xs-12">
+                                            {{broom.RoomName}}</div>
+                                        <div class="cus-box p-0">
+                                            <div class="col-md-8 col-sm-7 col-xs-12 packagedetail-block">
+                                                <div class="packagesDesc" [innerHTML]="broom.Description">
+
+                                                    <div class="adult-icon">2&nbsp;<i class="fa fa-male fa-2x"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-5 col-xs-8 pk-price">
+                                                <div class="packagesPriceCol">
+                                                    <div class="from">Area </div> {{broom.TotalAreainSqft}}
+                                                    <div class="from"> {{broom.rooms}} Rooms </div>
+                                                    <div class="from"> {{broom.MaxBed}} Adults </div>
+                                                    <div class="from"> {{broom.NoOFChilds}} Childs </div>
+                                                    <div class="packages_box">
+                                                        <div class="onlyRoomsValue" id="minRoomId">
+                                                            <div class="onlyPkgPricetext w-75">
+                                                                <div style="float:left;padding-right:5px;"
+                                                                    class="BEOCurrency">
+                                                                    INR
+                                                                </div>
+                                                                <div class="BEOPrice">{{ broom?.availablity?.Rate |
+                                                                    number:
+                                                                    '1.2-2' }}
+                                                                    <span class="beunit">
+                                                                        per
+                                                                        Day
+                                                                    </span>
+                                                                </div><span class="inclusivecss">Tax
+                                                                    Exclusive</span><br>
                                                             </div>
-                                                            <div class="BEOPrice">{{ broom?.availablity?.Rate | number:
-                                                                '1.2-2' }}
-                                                                <span class="beunit">
-                                                                    per
-                                                                    Day
-                                                                </span>
-                                                            </div><span class="inclusivecss">Tax
-                                                                Exclusive</span><br>
+                                                            <span class="hsbtn"
+                                                                (click)="booknow(broom.RoomId, room.RateId)">
+                                                                Book now
+                                                            </span>
                                                         </div>
-                                                        <span class="hsbtn"
-                                                            (click)="booknow(broom.RoomId, room.RateId)">
-                                                            Book now
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
                                 </div>
-                                <hr>
-                            </div>
+                            </ng-container>
                         </c-row>
                     </div>
                 </c-card-body>

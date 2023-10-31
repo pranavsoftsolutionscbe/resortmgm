@@ -22,5 +22,7 @@ export class h_actualroomrate {
     IsRatePosted: number = 0;
     NetAmount: number = 0;
     TotalAmount: number = 0;
+    VoucherNo: string = "";
+    VoucherCode: number = 0;
 
 }
