@@ -3,7 +3,7 @@ export class h_actualroomrate {
     RoomId: number = 0;
     PriceDate: Date = new Date();
     RoomRate: number = 0;
-    IsTaxIncluded: number = 0;
+    TaxRateID: number = 0;
     IsServiceChargeIncluded: number = 0;
     IsLunchIncluded: number = 0;
     IsDinnerIncluded: number = 0;

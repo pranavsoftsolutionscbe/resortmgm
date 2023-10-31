@@ -38,7 +38,7 @@ export class RoomTypeComponent implements OnInit {
   }
   getdata(): void {
 
-    this.dtenv.get(Endpoint.GetRoomTypes + "1")
+    this.dtenv.get(Endpoint.GetallRoomTypes + "1")
       .subscribe((res: any) => {
         this.roomtypes = res;
         this.filtedMembers = res;
