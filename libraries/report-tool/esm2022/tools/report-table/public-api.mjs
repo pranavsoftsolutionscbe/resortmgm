@@ -1,6 +1,0 @@
-/*
- * Public API Surface of report-tool
- */
-export * from './report-table.component';
-export * from './report-table.module';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL3Byb2plY3RzL3JlcG9ydC10b29sL3Rvb2xzL3JlcG9ydC10YWJsZS9wdWJsaWMtYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBQ0gsY0FBYywwQkFBMEIsQ0FBQztBQUN6QyxjQUFjLHVCQUF1QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiByZXBvcnQtdG9vbFxuICovXG5leHBvcnQgKiBmcm9tICcuL3JlcG9ydC10YWJsZS5jb21wb25lbnQnO1xuZXhwb3J0ICogZnJvbSAnLi9yZXBvcnQtdGFibGUubW9kdWxlJztcbiJdfQ==
