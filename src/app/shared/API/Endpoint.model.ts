@@ -27,6 +27,7 @@ class endpoint {
   readonly h_buldingroomdetails = "h_buldingroomdetails";
   readonly GetCustomerList = "Commondata/GetCustomerList/";
   readonly GetRoomTypes = "Commondata/GetRoomTypes/";
+  readonly GetallRoomTypes = "Commondata/GetallRoomTypes/";
   readonly GetRateTypeList = "Commondata/GetRateTypeList/";
   readonly h_seasonrate = "h_seasonrate";
   readonly Getseasonratelist = "Commondata/Getseasonratelist/";
@@ -62,6 +63,7 @@ class endpoint {
   readonly GetReportDynamic = "ReportHeads/GetReportDynamic";
   readonly GetReportHeadDetails = "ReportHeads/GetReportHeadDetails";
   readonly GetRportDetailList = "ReportDetails/GetRportDetailList";
+  readonly Roomallotment = "h_roomallotment";
 }
 
 export const Endpoint = new endpoint();

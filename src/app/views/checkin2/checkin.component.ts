@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
 import { h_customermaster } from 'src/app/shared/models/h_customermaster.model';
 import { h_roombooking } from 'src/app/shared/models/h_roombooking.model';
+import { h_actualroomrate } from 'src/app/shared/models/h_actualroomrate.model';
 @Component({
   selector: 'app-checkin',
   templateUrl: './checkin.component.html',
@@ -22,7 +23,7 @@ export class CheckinComponent implements OnInit {
   constructor(private dtenv: DataserviceService, public formatter: NgbDateParserFormatter, private customDatepickerService: CustomDatepickerService, private route: Router, private activatedRoute: ActivatedRoute,
     private domSanitizer: DomSanitizer, public datepipe: DatePipe) { }
 
-  checkInDetails = new HRoomallotment();
+  checkInDetails: HRoomallotment = new HRoomallotment();
   bookedvoucher = new HRoomallotment();
   timeCheckIn = { hour: 0, minute: 0 };
   timeCheckOut = { hour: 0, minute: 0 };
@@ -32,23 +33,23 @@ export class CheckinComponent implements OnInit {
   toasterColor = "success";
   booked = new h_roombooking()
   toasterShow = false;
-  BookingVouchers: any = [];
-  roomtypes: any = [];
-  ratelist: any = [];
+  BookingVouchers: any[] = [];
+  roomtypes: any[] = [];
+  ratelist: any[] = [];
   ratetypeID: number = 0;
   rateID: number = 0;
   positionStatic = ToasterPlacement.Static;
-  countrylist: any = [];
-  pincode_Address: any = [];
-  stateList: any = [];
-  districtList: any = [];
-  citylist: any = [];
+  countrylist: any[] = [];
+  pincode_Address: any[] = [];
+  stateList: any[] = [];
+  districtList: any[] = [];
+  citylist: any[] = [];
   countryName: string = "";
   member = new h_customermaster();
   date: NgbDateStruct;
   DELIMITER = "-";
   isEdit: boolean = false;
-  Rooms: any = [];
+  Rooms: any = {};
   custID: number = 0;
   user_id = Number(localStorage.getItem("user_id"));
   days: number = 0;
@@ -97,7 +98,7 @@ export class CheckinComponent implements OnInit {
   minOutDate = { year: 0, month: 0, day: 0 };
   CheckinDate: any = "";
   CheckoutDate: any = "";
-  dateLists: any = [];
+  dateLists: any[] = [];
   room_details: any = {
     Rate: 0,
     extraPricePerBed: 0,
@@ -107,7 +108,7 @@ export class CheckinComponent implements OnInit {
     extraDinnerRate: 0,
     extraSpecialDinnerRate: 0,
     taxpercent: 0,
-
+    totalAmount: 0
   };
 
   ngOnInit() {
@@ -140,6 +141,17 @@ export class CheckinComponent implements OnInit {
       .subscribe((res: any[]) => {
         this.customers = res;
       });
+      let vocrno="";
+      let vocrcode=0;
+      let docdat = this.datepipe.transform(Date(), 'yyyy-MM-dd');
+      this.dtenv.get(Endpoint.getvoucher + '1512/Check IN/' + docdat)
+      .subscribe((resvoc: any) => {
+        vocrno =resvoc[0].Voucherno;
+        vocrcode =  resvoc[0].VoucherCode;
+        this.checkInDetails.VoucherCode = vocrcode;
+        this.checkInDetails.VoucherNo = vocrno;
+      });
+  
   }
 
   assignBookingDates(): void {
@@ -298,10 +310,12 @@ export class CheckinComponent implements OnInit {
 
   LoadRooms(): void {
     this.dtenv.get(Endpoint.GetRoomstobook + this.rateID + '/' + this.ratetypeID)
-      .subscribe((res: any) => {
-        this.Rooms = res.pop();
-        if (this.Rooms && this.formatedInDate && this.formatedOutDate) {
-          this.getRoomDetails();
+      .subscribe((res: any[]) => {
+        if (res.length) {
+          this.Rooms = res.pop();
+          if (this.Rooms && this.formatedInDate && this.formatedOutDate) {
+            this.getRoomDetails();
+          }
         }
       });
   }
@@ -317,7 +331,8 @@ export class CheckinComponent implements OnInit {
             extraLunchRate: 0,
             extraDinnerRate: 0,
             extraSpecialDinnerRate: 0,
-            taxpercent: 0
+            taxpercent: 0,
+            totalAmount: 0
           }
         }
 
@@ -329,11 +344,35 @@ export class CheckinComponent implements OnInit {
 
         this.room_details.extraPricePerBed = extraAduts * this.room_details.PricePerBed;
         this.room_details.extraChildPricePerBed = extraChilds * this.room_details.ChildPricePerBed;
-        this.room_details.extraBreakFastRate = (extraAduts + extraChilds) * this.room_details.BreakFastRate;
-        this.room_details.extraLunchRate = (extraAduts + extraChilds) * this.room_details.LunchRate;
-        this.room_details.extraDinnerRate = (extraAduts + extraChilds) * this.room_details.DinnerRate;
-        this.room_details.extraSpecialDinnerRate = (extraAduts + extraChilds) * this.room_details.SpecialDinnerRate;
+        this.room_details.extraBreakFastRate = this.checkInDetails.IsBreakFastIncluded ? (extraAduts + extraChilds) * this.room_details.BreakFastRate : 0;
+        this.room_details.extraLunchRate = this.checkInDetails.IsLunchInclude ? (extraAduts + extraChilds) * this.room_details.LunchRate : 0;
+        this.room_details.extraDinnerRate = this.checkInDetails.IsDinnerInclude ? (extraAduts + extraChilds) * this.room_details.DinnerRate : 0;
+        this.room_details.extraSpecialDinnerRate = 0;
+        //  (extraAduts + extraChilds) * this.room_details.SpecialDinnerRate;
+
+        this.room_details.totalAmount = this.room_details.extraPricePerBed + this.room_details.extraChildPricePerBed + this.room_details.extraBreakFastRate + this.room_details.extraLunchRate + this.room_details.extraDinnerRate + this.room_details.extraSpecialDinnerRate;
       });
+  }
+
+  calculateGuestPrice($event: any) {
+    if ($event.target.value) {
+      const noOfGuest = Number($event.target.value);
+      this.room_details.totalAmount = this.room_details.totalAmount - this.room_details.extraPricePerBed;
+      const extraAduts = (this.room_details.MaxBed < noOfGuest) ? (noOfGuest - this.room_details.MaxBed) : 0;
+      this.room_details.extraPricePerBed = extraAduts * this.room_details.PricePerBed;
+      this.room_details.totalAmount = this.room_details.totalAmount + this.room_details.extraPricePerBed;
+
+    }
+  }
+
+  calculateChildPrice($event: any) {
+    if ($event.target.value) {
+      this.room_details.totalAmount = this.room_details.totalAmount - this.room_details.extraChildPricePerBed;
+      const noOfChild = Number($event.target.value);
+      const extraAduts = (this.room_details.NoOFChilds < noOfChild) ? (noOfChild - this.room_details.NoOFChilds) : 0;
+      this.room_details.extraChildPricePerBed = extraAduts * this.room_details.ChildPricePerBed;
+      this.room_details.totalAmount = this.room_details.totalAmount + this.room_details.extraChildPricePerBed;
+    }
   }
 
   getDiffDays(sDate: any, eDate: any) {
@@ -365,14 +404,27 @@ export class CheckinComponent implements OnInit {
       this.checkInDetails.CheckinDate = new Date(formatedDate);
       this.formatedInDate = formatedDate;
       this.minOutDate = { year: date.year, month: date.month, day: date.day };
+
+      this.loadTableByDates();
     } else if (type === "checkout") {
       this.checkInDetails.CheckoutDate = new Date(formatedDate);
       this.formatedOutDate = formatedDate;
+
+      this.loadTableByDates();
     } else {
       this.checkInDetails.CustomerDOB = new Date(formatedDate);
     }
 
-    this.loadTableByDates();
+  }
+
+  onDateInput(date: any, type: string) {
+    if (type === "dob") {
+      this.checkInDetails.CustomerDOB = new Date(date.target.value);
+    } else if (type === "checkin") {
+      this.checkInDetails.CheckinDate = new Date(date.target.value);
+    } else if (type === "checkout") {
+      this.checkInDetails.CheckoutDate = new Date(date.target.value);
+    }
   }
 
   private loadTableByDates() {
@@ -471,5 +523,97 @@ export class CheckinComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("booknow")).style.backgroundColor = '#081015';
       this.bookingtext = "COMPLETE BOOKING";
     }
+  
+  }
+
+  clearData() {
+    this.member = new h_customermaster();
+    this.checkInDetails = new HRoomallotment();
+    this.minDate = { year: 0, month: 0, day: 0 };
+    this.minOutDate = { year: 0, month: 0, day: 0 };
+    this.dob = { year: 0, month: 0, day: 0 };
+    this.Fromdate = { year: 0, month: 0, day: 0 };
+    this.Todate = { year: 0, month: 0, day: 0 };
+    this.timeCheckIn = { hour: 0, minute: 0 };
+    this.timeCheckOut = { hour: 0, minute: 0 };
+    this.CheckinDate = "";
+    this.CheckoutDate = "";
+    this.selectedVoucher = "";
+    this.dateLists = [];
+    this.ratetypeID = 0;
+    this.rateID = 0;
+    this.room_details = {
+      Rate: 0,
+      extraPricePerBed: 0,
+      extraChildPricePerBed: 0,
+      extraBreakFastRate: 0,
+      extraLunchRate: 0,
+      extraDinnerRate: 0,
+      extraSpecialDinnerRate: 0,
+      taxpercent: 0,
+      totalAmount: 0
+    };
+  }
+
+  save() {
+    let dat = this.datepipe.transform(Date(), 'yyyy-MM-dd');
+    let vocrno="";
+    let vocrcode=0;
+    this.dtenv.get(Endpoint.getvoucher + '1512/Check IN/' + dat)
+    .subscribe((resvoc: any) => {
+      vocrno =resvoc[0].Voucherno;
+      vocrcode =  resvoc[0].VoucherCode;
+      console.log(resvoc);
+    });
+return;
+    const CheckinTime = this.timeCheckIn.hour + ':' + this.timeCheckIn.minute + ':00';
+    this.checkInDetails.CheckinTime = new Date(this.formatedInDate + ' ' + CheckinTime);
+
+    const CheckoutTime = this.timeCheckOut.hour + ':' + this.timeCheckOut.minute + ':00';
+    this.checkInDetails.CheckoutTime = new Date(this.formatedOutDate + ' ' + CheckoutTime);
+
+    this.checkInDetails.roomrates = [];
+
+    this.dateLists.forEach((data: any) => {
+      const dateArray = data.date.split("-");
+      const date = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
+      const object = new h_actualroomrate();
+      object.RoomId = 1;// Number(this.checkInDetails.RoomCode);
+      object.PriceDate = new Date(date);
+      object.RoomRate = this.room_details.Rate;
+      object.IsLunchIncluded = this.checkInDetails.IsLunchInclude;
+      object.IsDinnerIncluded = this.checkInDetails.IsDinnerInclude;
+      object.IsSpecialDinnerIncluded = 0;
+      object.IsBreakFastInclued = this.checkInDetails.IsBreakFastIncluded;
+      object.BreakFastRate = this.checkInDetails.BreakFastRate;
+      object.ConsumedBreakFastRate = this.room_details.extraBreakFastRate;
+      object.LunchRate = this.checkInDetails.LunchRate;
+      object.ConsumedLunchRate = this.room_details.extraLunchRate;
+      object.DinnerRate = this.checkInDetails.DinnerRate;
+      object.ConsumedDinnerRate = this.room_details.extraDinnerRate;
+      object.SpecialDinnerRate = 0;
+      object.ConsumedSpecialDinnerRate = 0;
+      object.TaxAmount = this.checkInDetails.TaxAmount;
+      object.ServiceChargeAmount = 0;
+      object.IsRatePosted = 0;
+      object.NetAmount = 0;
+      object.TotalAmount = this.checkInDetails.TotalAmount;
+      object.VoucherNo = vocrno;
+      object.VoucherCode = vocrcode;
+
+      this.checkInDetails.roomrates.push(object);
+    })
+    this.checkInDetails.RefVoucherNo = this.checkInDetails.VoucherNo;
+    this.checkInDetails.RefVoucherCode = this.checkInDetails.VoucherCode;
+    this.checkInDetails.VoucherNo= vocrno;
+    this.checkInDetails.VoucherCode = vocrcode;
+    this.checkInDetails.RoomId=1;
+    this.dtenv.post(Endpoint.Roomallotment, this.checkInDetails)
+      .subscribe((res: any) => {
+        this.dtenv.get(Endpoint.updateVoucherno + vocrcode)
+        .subscribe((res: any) => {
+          alert("Check in Sucessfuly Made");
+        })
+      })
   }
 }

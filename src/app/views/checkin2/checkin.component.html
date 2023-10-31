@@ -71,9 +71,10 @@
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="room_code">
                                 Room No
+                                <i class="fa fa-star mand"></i>
                             </label>
                             <select aria-label="room_code" cSelect class="form-control"
-                                [(ngModel)]="checkInDetails.RoomId">
+                                [(ngModel)]="checkInDetails.RoomCode">
                                 <option value="">Select Room Type</option>
                                 <option *ngFor="let roomtyp of Rooms" value={{roomtyp.RoomId}}>
                                     {{roomtyp.RoomName}}</option>
@@ -147,6 +148,7 @@
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="last_name">
                                 Guest Last Name
+                                <i class="fa fa-star mand"></i>
                             </label>
                             <input autocomplete="off" placeholder="Guest Last Name" cFormControl name="last_name"
                                 type="text" [(ngModel)]="checkInDetails.CustomerSecondName" />
@@ -160,8 +162,7 @@
                             <div class="position-relative">
                                 <input autocomplete="off" cFormControl class="form-control" placeholder="yyyy-mm-dd"
                                     name="offer_from" ngbDatepicker #datepicker="ngbDatepicker" [(ngModel)]="dob"
-                                    (dateSelect)="onDateSelect($event, 'dob')" (input)="onDateInput($event, 'dob')"
-                                    [maxDate]="minDate" />
+                                    (dateSelect)="onDateSelect($event, 'dob')" (input)="onDateInput($event, 'dob')" />
                                 <button class="btn btn-outline-secondary form-datepicker" (click)="datepicker.toggle()"
                                     type="button"><svg cIcon name="cilCalendar"></svg>
                                 </button>
@@ -174,6 +175,7 @@
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="passport_no">
                                 Passport No
+                                <!-- <i class="fa fa-star mand"></i> -->
                             </label>
                             <input autocomplete="off" placeholder="Passport No" cFormControl name="passport_no"
                                 type="text" [(ngModel)]="checkInDetails.PassportNo" />
@@ -191,6 +193,7 @@
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="address2">
                                 Address Line 2
+                                <i class="fa fa-star mand"></i>
                             </label>
                             <textarea cFormControl type="text" placeholder="Address Line 2" name="address2"
                                 [(ngModel)]="checkInDetails.AddressLine2"></textarea>
@@ -214,15 +217,6 @@
                         </c-col>
 
                         <c-col sm="12" md="6" lg="4" class="c-block">
-                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="city">
-                                City
-                                <i class="fa fa-star mand"></i>
-                            </label>
-                            <input autocomplete="off" placeholder="City" cFormControl name="city" type="text"
-                                [(ngModel)]="checkInDetails.City" />
-                        </c-col>
-
-                        <!-- <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="state">
                                 State
                                 <i class="fa fa-star mand"></i>
@@ -248,20 +242,24 @@
                                     {{district.District}}
                                 </option>
                             </select>
-                        </c-col> -->
-
-                        <c-col sm="12" md="6" lg="4" class="c-block">
-                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="email">
-                                Email ID
-                                <i class="fa fa-star mand"></i>
-                            </label>
-                            <input autocomplete="off" placeholder="Enter Email ID" cFormControl name="email" type="text"
-                                [(ngModel)]="checkInDetails.emailId" />
                         </c-col>
                     </c-row>
                 </div>
                 <div class="d-flex m-0 row w-100">
                     <c-row class="container">
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="city">
+                                City
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <select aria-label="city" cSelect class="form-control" [(ngModel)]="checkInDetails.CityId"
+                                (change)="getPincode()">
+                                <option value="">Select City</option>
+                                <option *ngFor="let item of citylist" [value]="item.City">
+                                    {{item.City}}
+                            </select>
+                        </c-col>
+
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="phone">
                                 Phone/Mobile No
@@ -274,10 +272,15 @@
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="phone2">
                                 Alternative Phone
+                                <i class="fa fa-star mand"></i>
                             </label>
                             <input autocomplete="off" placeholder="Alternative Phone No" cFormControl name="phone2"
                                 type="text" [(ngModel)]="checkInDetails.Phone2" />
                         </c-col>
+                    </c-row>
+                </div>
+                <div class="d-flex m-0 row w-100">
+                    <c-row class="container">
 
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="EmergencyNo">
@@ -286,13 +289,20 @@
                             <input autocomplete="off" placeholder="Emergency No" cFormControl name="EmergencyNo"
                                 type="text" [(ngModel)]="checkInDetails.EmergencyNo" />
                         </c-col>
-                    </c-row>
-                </div>
-                <div class="d-flex m-0 row w-100">
-                    <c-row class="container">
+
+                        <c-col sm="12" md="6" lg="4" class="c-block">
+                            <label cLabel class="col-sm-4 form-label m-0 m-2" for="email">
+                                Email ID
+                                <i class="fa fa-star mand"></i>
+                            </label>
+                            <input autocomplete="off" placeholder="Enter Email ID" cFormControl name="email" type="text"
+                                [(ngModel)]="checkInDetails.emailId" />
+                        </c-col>
+
                         <c-col sm="12" md="6" lg="4" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="remarks">
                                 Remarks
+                                <!-- <i class="fa fa-star mand"></i> -->
                             </label>
                             <textarea cFormControl type="text" id="remarks" name="remarks" placeholder="Enter Remarks"
                                 [(ngModel)]="checkInDetails.Remarks"></textarea>
@@ -312,6 +322,7 @@
                         <c-col sm="12" md="6" lg="3" class="c-block">
                             <label cLabel class="col-sm-4 form-label m-0 m-2" for="CouponVoucherNo">
                                 Coupon No
+                                <i class="fa fa-star mand"></i>
                             </label>
                             <input autocomplete="off" placeholder="Coupon No" cFormControl name="CouponVoucherNo"
                                 type="text" [(ngModel)]="checkInDetails.CouponVoucherNo" />
@@ -404,7 +415,7 @@
                                 <th scope="col" class="text-center small">Spl Dinner</th>
                                 <th scope="col" class="text-center small">Service Charge</th>
                                 <th scope="col" class="text-center small">Tax %</th>
-                                <th scope="col" class="text-center small">Tax Rate</th>
+                                <th scope="col" class="text-center small">Net Rate</th>
                                 <th scope="col" class="text-center small">Total Amount</th>
                             </tr>
                         </thead>
@@ -429,8 +440,7 @@
                                 <td class="text-center">{{ room_details.extraSpecialDinnerRate | number: '1.2-2' }}</td>
                                 <td class="text-center"></td>
                                 <td class="text-center">{{ room_details.taxpercent }}</td>
-                                <td class="text-center">{{ (room_details.Rate * room_details.taxpercent / 100) | number:
-                                    '1.2-2' }}</td>
+                                <td class="text-center">{{ room_details.totalAmount }}</td>
                                 <td class="text-center">{{ room_details.totalAmount }}</td>
                             </tr>
                         </tbody>
@@ -445,20 +455,18 @@
                             New</button>
                     </c-col>
                     <c-col sm="12" md="3">
-                        <button cButton class="btn w-100 mb-1 p-1 text-black" [class.btn-success]="!isEdit"
-                            [class.btn-info]="isEdit" type="button" (click)="save()">
+                        <button cButton class="btn btn-success w-100 mb-1 p-1 text-black" type="button"
+                            (click)="save()">
                             <svg cIcon name="cil-task" size="sm" class="me-2" title="cil-task"></svg>
-                            {{ isEdit ? "Update" : "Save"}}</button>
+                            Save</button>
                     </c-col>
                     <c-col sm="12" md="3">
-                        <button cButton class="btn btn-warning w-100 mb-1 p-1 text-black" type="button"
-                            (click)="editBookingModel()">
+                        <button cButton class="btn btn-warning w-100 mb-1 p-1 text-black" type="button">
                             <svg cIcon name="cil-pencil" size="sm" class="me-2" title="cil-pencil"></svg>
                             Edit</button>
                     </c-col>
                     <c-col sm="12" md="3">
-                        <button cButton class="btn btn-danger w-100 mb-1 p-1 text-black" type="button"
-                            (click)="toggleConfirmation()">
+                        <button cButton class="btn btn-danger w-100 mb-1 p-1 text-black" type="button">
                             <svg cIcon name="cil-trash" size="sm" class="me-2" title="cil-trash"></svg>
                             Delete</button>
                     </c-col>
@@ -475,51 +483,3 @@
         </c-toast>
     </c-toaster>
 </c-col>
-
-
-<c-modal [visible]="editBookingVisible">
-    <c-modal-header>
-        <h5 cModalTitle>Check-In Lists</h5>
-        <button (click)="editBookingVisible = false" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body class="pt-2">
-        <c-col xs="12">
-            <c-card class="mb-4">
-                <div class="table-details">
-                    <table cTable [responsive]="true" border="1" class="mb-0">
-                        <thead cTableColor="dark">
-                            <tr>
-                                <th scope="col" class="text-center small">S.No</th>
-                                <th scope="col" class="text-center small">Voucher No</th>
-                                <th scope="col" class="text-center small">Check-In Date</th>
-                                <th scope="col" class="text-center small">Customer Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="date_details" *ngFor="let data of checkInEditLists; let i = index;">
-                                <td class="text-center">{{ i + 1 }}</td>
-                                <td class="text-center"><a href="javascript:void(0);" (click)="updateDetails(data)">{{
-                                        data.VoucherNo }}</a></td>
-                                <td class="text-center">{{ data.CheckinDate | date: 'dd-MM-yyy' }}</td>
-                                <td class="text-center">{{ data.CustomerFirstName }} {{ data.CustomerSecondName }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </c-card>
-        </c-col>
-    </c-modal-body>
-</c-modal>
-
-<c-modal class="customModal" id="confirmationModal" [visible]="toggleConfirmationModal">
-    <c-modal-header>
-        <button (click)="toggleConfirmation()" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>Are you sure want to delete your booking <b>{{ checkInDetails.VoucherNo }}</b>?</c-modal-body>
-    <c-modal-footer>
-        <button (click)="toggleConfirmation()" cButton color="secondary">
-            Close
-        </button>
-        <button cButton color="danger" (click)="deleteBooking()">Delete</button>
-    </c-modal-footer>
-</c-modal>

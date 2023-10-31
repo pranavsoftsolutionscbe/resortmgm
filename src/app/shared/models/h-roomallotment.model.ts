@@ -16,14 +16,15 @@ export class HRoomallotment {
     PassportNo: string;
     AddressLine1: string;
     AddressLine2: string;
-    CityId: string;
+    City: string;
     CountryId: number;
     emailId: string;
     PhoneNo: string;
     BillTo: number;
     BookEntryType: number;
     BookedBy: number;
-    ReservationMode: number;
+    ReservationMode: string;
+
     IsBreakFastIncluded: number;
     CouponVoucherNo: string;
     CouponVoucherCode: number;

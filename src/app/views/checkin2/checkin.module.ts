@@ -10,7 +10,6 @@ import {
   FormModule,
   GridModule,
   ListGroupModule,
-  ModalModule,
   SharedModule,
   TableModule,
   ToastModule
@@ -38,8 +37,7 @@ import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-boots
     TableModule,
     NgbDatepickerModule,
     NgbTimepickerModule,
-    ToastModule,
-    ModalModule
+    ToastModule
   ]
 })
 export class CheckinModule { }

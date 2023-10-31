@@ -67,7 +67,7 @@ export class CouponComponent implements OnInit {
     this.filtedMembers = this.searchService.filterMembers(this.coupons, keyword);
   }
   ShowCoupon(coupId: number): void {
-
+    this.isEdit= true;
     this.coupon = this.coupon_lists.filter((cp: { CouponID: number; }) => cp.CouponID == coupId)[0];
     console.log(this.coupon);
 
@@ -171,6 +171,7 @@ export class CouponComponent implements OnInit {
     this.coupon = new CouponMaster();
     this.checkin_date = this.minDate;
     this.checkout_date = this.minDate;
+    this.isEdit= false;
     this.getdata();
   }
   onDateSelect(date: NgbDateStruct, type: string) {
