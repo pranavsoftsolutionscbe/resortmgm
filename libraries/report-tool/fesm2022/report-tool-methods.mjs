@@ -1,9 +1,9 @@
 import { AES, enc } from 'crypto-js';
 import { DatePipe } from '@angular/common';
 import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import * as Excel from 'exceljs/dist/exceljs.min.js';
-import * as FileSaver from 'file-saver';
+import autoTable, { applyPlugin } from 'jspdf-autotable';
+import { Workbook } from 'exceljs';
+import { saveAs } from 'file-saver';
 import { ExportExtentions, ExportTypes } from 'report-tool/models';
 import { fillColor } from 'report-tool/core';
 import { ToWords } from 'to-words';
@@ -268,6 +268,7 @@ function num2Word(num, locale) {
     return toWord.convert(num);
 }
 
+applyPlugin(jsPDF);
 function exportPdfTable(orientation) {
     const totalPagesExp = "{total_pages_count_string}";
     const doc = new jsPDF(orientation);
@@ -327,7 +328,7 @@ function exportPdf(pdfOptions) {
         const atOption = autoTableOptions(doc, tblOptions, totalPagesExp, bgColor);
         atOption.columns = cols;
         atOption.body = reports;
-        autoTable(doc, atOption);
+        autoTable.default(doc, atOption);
         // options.startY = doc.previousAutoTable.finalY;
     };
     const addAutoTable = (reports) => {
@@ -460,7 +461,7 @@ function exportPdf(pdfOptions) {
     const blobPDF = new Blob([doc.output()], { type: "application/pdf" });
     // fileSaver.saveAs(blobPDF, options.title);
     if (!isBlob) {
-        FileSaver.saveAs(blobPDF, options.title.trim().replace(/[^a-zA-Z0-9]/g, "_") + ExportExtentions.PDF);
+        saveAs(blobPDF, options.title.trim().replace(/[^a-zA-Z0-9]/g, "_") + ExportExtentions.PDF);
     }
     return blobPDF;
 }
@@ -554,8 +555,11 @@ async function exportExcel(excelOptions) {
         start: header[0].key,
         end: header[header.length - 1].key,
     };
-    const workbook = new Excel.Workbook();
-    const centerAlign = { vertical: "middle", horizontal: "center" };
+    const workbook = new Workbook();
+    const centerAlign = {
+        vertical: "middle",
+        horizontal: "center",
+    };
     const defaultBorder = {
         top: { style: "thin", color: { argb: "AAAAAA" } },
         left: { style: "thin", color: { argb: "AAAAAA" } },
@@ -754,16 +758,10 @@ async function exportExcel(excelOptions) {
             if (rowData[key]) {
                 checkedCell.font = {
                     name: "Wingdings",
-                    vertical: "middle",
-                    horizontal: "center",
                 };
                 checkedCell.value = "ü";
             }
             else {
-                checkedCell.font = {
-                    vertical: "middle",
-                    horizontal: "center",
-                };
                 checkedCell.value = "-";
             }
             checkedCell.alignment = centerAlign;
@@ -774,7 +772,7 @@ async function exportExcel(excelOptions) {
     return workbook.xlsx.writeBuffer().then((rowData) => {
         const blob = new Blob([rowData], { type: ExportTypes.EXCEL });
         if (!isBlob) {
-            FileSaver.saveAs(blob, title.trim().replace(/[^a-zA-Z0-9]/g, "_") + ExportExtentions.EXCEL);
+            saveAs(blob, title.trim().replace(/[^a-zA-Z0-9]/g, "_") + ExportExtentions.EXCEL);
         }
         return blob;
     });
